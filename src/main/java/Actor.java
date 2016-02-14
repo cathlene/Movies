@@ -20,6 +20,9 @@ public class Actor {
     }
 
     public void setNaam(String naam) {
+        if(naam==null || naam.isEmpty()){
+            throw new IllegalArgumentException("geen geldige naam");
+        }
         this.naam = naam;
     }
 
@@ -27,7 +30,11 @@ public class Actor {
         return voornaam;
     }
 
-    public void setVoornaam(String voornaam) {
+    public void setVoornaam(String voornaam)
+    {
+        if(voornaam==null || voornaam.isEmpty()){
+            throw new IllegalArgumentException("geen geldige voornaam");
+        }
         this.voornaam = voornaam;
     }
     public int getLeeftijd() {
@@ -35,6 +42,9 @@ public class Actor {
     }
 
     public void setLeeftijd(int leeftijd) {
+        if(leeftijd<0){
+            throw new IllegalArgumentException("geen geldige leeftijd");
+        }
         this.leeftijd = leeftijd;
     }
 
@@ -43,6 +53,9 @@ public class Actor {
     }
 
     public void setId(String id) {
+        if(id==null || id.isEmpty()){
+            throw new IllegalArgumentException("geen geldige id");
+        }
         this.id = id;
     }
 
