@@ -9,8 +9,8 @@ public class Facade {
     private MovieRepository movieRepository;
     public Facade(){
 
-        actorRepository= new ActorRepositoryStub();
-        movieRepository= new MovieRepositoryStub();
+        actorRepository= new ActorRepositoryStub(); ActorFactory.createRepository(DbActorType.ACTORREPOSITORYSQL);
+        movieRepository= MovieFactory.createRepository(DbMovieType.MOVIEREPOSITORYSTUB);
     }
 
     public void addMovie(Movie movie){
