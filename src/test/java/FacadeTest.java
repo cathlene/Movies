@@ -1,8 +1,10 @@
 import db.ActorDb.ActorRepository;
 import db.ActorDb.ActorRepositoryStub;
+import db.DbException;
 import db.MovieDb.MovieRepository;
 import db.MovieDb.MovieRepositoryStub;
 import domain.Actor;
+import domain.DomainException;
 import domain.Facade;
 import domain.Movie;
 import org.junit.Test;
@@ -33,13 +35,13 @@ public class FacadeTest {
     assertEquals(actor.getId(), facade.getActor("John").getId());
 
     }
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DbException.class)
     public void testGetter_actor_met_fouten_waarden(){
         assertEquals(actor.getId(), facade.getActor("Joh").getId());
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = DbException.class)
     public void testGetter_movie_met_fouten_waarden(){
         assertEquals(actor.getId(), facade.getMovie("p").getTitle());
 
@@ -82,7 +84,7 @@ public class FacadeTest {
     @Test
     public void testGetMoviesWithSPecificDuration_geeft_lijst_van_films_terug_met_de_specifieke_juiste_duur_limiet(){
         List<Movie> movies=facade.getMoviesWithSpecificDuration(120);
-      //  assertEquals("PublicEnemies", movies.get(0).getTitle());
+        assertEquals("PublicEnemies", movies.get(0).getTitle());
         assertEquals("Rango", movies.get(1).getTitle());
     }
     @Test

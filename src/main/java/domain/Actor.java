@@ -23,7 +23,7 @@ public class Actor {
 
     public void setNaam(String naam) {
         if(naam==null || naam.isEmpty()){
-            throw new IllegalArgumentException("geen geldige naam");
+            throw new DomainException("geen geldige naam");
         }
         this.naam = naam;
     }
@@ -35,7 +35,7 @@ public class Actor {
     public void setVoornaam(String voornaam)
     {
         if(voornaam==null || voornaam.isEmpty()){
-            throw new IllegalArgumentException("geen geldige voornaam");
+            throw new DomainException("geen geldige voornaam");
         }
         this.voornaam = voornaam;
     }
@@ -45,7 +45,7 @@ public class Actor {
 
     public void setLeeftijd(int leeftijd) {
         if(leeftijd<0){
-            throw new IllegalArgumentException("geen geldige leeftijd");
+            throw new DomainException("geen geldige leeftijd");
         }
         this.leeftijd = leeftijd;
     }
@@ -56,7 +56,7 @@ public class Actor {
 
     public void setId(String id) {
         if(id==null || id.isEmpty()){
-            throw new IllegalArgumentException("geen geldige id");
+            throw new DomainException("geen geldige id");
         }
         this.id = id;
     }

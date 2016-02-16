@@ -23,7 +23,7 @@ public class Movie {
 
     public void setTitle(String title) {
         if(title ==null || title.isEmpty() ){
-            throw new IllegalArgumentException("geen geldige titel");
+            throw new DomainException("geen geldige titel");
         }
         this.title = title;
     }
@@ -34,7 +34,7 @@ public class Movie {
 
     public void setDuur(int duur) {
         if(duur < 0 ){
-            throw new IllegalArgumentException("geen geldige duur");
+            throw new DomainException("geen geldige duur");
         }
         this.duur = duur;
     }
@@ -45,7 +45,7 @@ public class Movie {
 
     public void setHoofdrolSpeler(Actor hoofdrolSpeler) {
         if(hoofdrolSpeler==null){
-            throw new IllegalArgumentException("geen geldige hoofdrolspeler");
+            throw new DomainException("geen geldige hoofdrolspeler");
         }
         this.hoofdrolSpeler = hoofdrolSpeler;
     }

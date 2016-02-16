@@ -13,7 +13,7 @@ public class ActorFactory {
             case ACTORREPOSITORYSQL:
                 return new ActorRepositorySql();
             default:
-                throw new IllegalArgumentException("invalid type");
+                throw new DomainException("invalid type");
         }
 
     }

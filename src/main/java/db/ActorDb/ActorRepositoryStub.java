@@ -1,6 +1,8 @@
 package db.ActorDb;
 
 import domain.Actor;
+import domain.DomainException;
+import db.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +22,7 @@ public class ActorRepositoryStub implements ActorRepository {
     }
     public void addActor(Actor actor) {
         if (actor.getId()==null || actor.getId().isEmpty() ){
-            throw new IllegalArgumentException("Geen geldige actor");
+            throw new DbException("Geen geldige actor");
         }
         actors.put(actor.getId(),actor);
 
@@ -28,14 +30,14 @@ public class ActorRepositoryStub implements ActorRepository {
 
     public void removeActor(Actor actor) {
         if (actor.getId()==null || actor.getId().isEmpty() || !actors.containsKey(actor.getId())){
-            throw new IllegalArgumentException("Geen geldige actor");
+            throw new DbException("Geen geldige actor");
         }
         actors.remove(actor.getId());
     }
 
     public void updateActor(Actor actor) {
         if (actor.getId()==null || actor.getId().isEmpty() || !actors.containsKey(actor.getId())){
-            throw new IllegalArgumentException("Geen geldige actor");
+            throw new DbException("Geen geldige actor");
         }
         actors.put(actor.getId(),actor);
 
@@ -44,7 +46,7 @@ public class ActorRepositoryStub implements ActorRepository {
 
     public Actor getActor(String id) {
         if (id==null || id.isEmpty() || !actors.containsKey(id)){
-            throw new IllegalArgumentException("Geen geldige Id");
+            throw new DbException("Geen geldige Id");
         }
         return actors.get(id);
     }

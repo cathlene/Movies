@@ -1,5 +1,6 @@
 package db.MovieDb;
 
+import db.DbException;
 import domain.Actor;
 import domain.Movie;
 
@@ -44,7 +45,7 @@ public class MovieRepositoryStub implements MovieRepository{
 
     public Movie getMovie(String title) {
         if (title==null || title.isEmpty()|| !movies.containsKey(title)){
-            throw new IllegalArgumentException("Geen geldige title");
+            throw new DbException("Geen geldige title");
         }
         return movies.get(title);
     }

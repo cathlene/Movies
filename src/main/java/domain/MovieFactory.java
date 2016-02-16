@@ -14,7 +14,7 @@ public class MovieFactory {
             case MOVIEREPOSITORYSQL:
                 return new MovieRepositorySql();
             default:
-                throw new IllegalArgumentException("invalid type");
+                throw new DomainException("invalid type");
         }
 
     }
