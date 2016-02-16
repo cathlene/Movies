@@ -1,14 +1,16 @@
+package db.MovieDb;
+
 /**
  * Created by cathlene on 15/02/2016.
  */
-public enum DbActorType {
+public enum DbMovieType {
 
-    ACTORREPOSITORYSQL("actorSql"),
-    ACTORREPOSITORYSTUB("actorStub");
+    MOVIEREPOSITORYSQL("movieSql"),
+    MOVIEREPOSITORYSTUB("movieStub");
 
 
     private String type;
-    private DbActorType(String type){
+    private DbMovieType(String type){
         this.type=type;
     }
 

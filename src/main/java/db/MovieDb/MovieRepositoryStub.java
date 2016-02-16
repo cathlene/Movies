@@ -1,3 +1,8 @@
+package db.MovieDb;
+
+import domain.Actor;
+import domain.Movie;
+
 import java.util.*;
 
 /**
@@ -7,9 +12,11 @@ public class MovieRepositoryStub implements MovieRepository{
     private Map<String, Movie> movies;
     public MovieRepositoryStub(){
 
-        movies= new HashMap<String, Movie>();
+        movies= new TreeMap<String, Movie>(); // films worden gesorteerd volgens titel bijgehouden
 
-        this.addMovie( new Movie("PublicEnemy", 118,new Actor("Johnny", "Depp", 55,"John")));
+        this.addMovie( new Movie("PublicEnemies", 118,new Actor("Johnny", "Depp", 55,"John")));
+        this.addMovie(new Movie("Rango", 96, new Actor("Johnny", "Depp",55,"John")));
+
     }
     public void addMovie(Movie movie) {
         if (movie.getTitle()==null || movie.getTitle().isEmpty()){

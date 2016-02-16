@@ -1,3 +1,7 @@
+package db.ActorDb;
+
+import domain.Actor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

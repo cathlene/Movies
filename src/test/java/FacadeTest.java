@@ -1,3 +1,10 @@
+import db.ActorDb.ActorRepository;
+import db.ActorDb.ActorRepositoryStub;
+import db.MovieDb.MovieRepository;
+import db.MovieDb.MovieRepositoryStub;
+import domain.Actor;
+import domain.Facade;
+import domain.Movie;
 import org.junit.Test;
 
 import java.util.List;
@@ -9,14 +16,14 @@ import static org.junit.Assert.*;
  */
 public class FacadeTest {
 
-    private  Actor actor;
+    private Actor actor;
     private Movie movie;
     private Facade facade;
     @org.junit.Before
     public void setUp() {
 
         actor= new Actor("Johnny", "Depp", 55,"John");
-        movie= new Movie("PublicEnemy", 118,actor);
+        movie= new Movie("PublicEnemies", 118,actor);
        facade= new Facade();
 
     }
@@ -40,7 +47,7 @@ public class FacadeTest {
 
     @Test
     public void testGetter_movie_met_geldige_waarden(){
-        assertEquals(movie.getTitle(), facade.getMovie("PublicEnemy").getTitle());
+        assertEquals(movie.getTitle(), facade.getMovie("PublicEnemies").getTitle());
 
     }
     @Test
@@ -48,7 +55,7 @@ public class FacadeTest {
 
         MovieRepository movieRepository = new MovieRepositoryStub();
         movieRepository.addMovie(movie);
-        assertEquals(1,movieRepository.getAantalMovies());
+        assertEquals(2,movieRepository.getAantalMovies());
     }
 
     @Test
@@ -63,6 +70,7 @@ public class FacadeTest {
     public void testGetMoviesWithSPecificActor_geeft_lijst_van_films_terug_met_de_specifieke_geldige_acteur(){
        List<Movie> movies=facade.getMoviesWithSpecificActor(actor);
         assertEquals("John",movies.get(0).getHoofdrolSpeler().getId());
+        assertEquals("John", movies.get(1).getHoofdrolSpeler().getId());
     }
 
     @Test
@@ -74,12 +82,19 @@ public class FacadeTest {
     @Test
     public void testGetMoviesWithSPecificDuration_geeft_lijst_van_films_terug_met_de_specifieke_juiste_duur_limiet(){
         List<Movie> movies=facade.getMoviesWithSpecificDuration(120);
-        assertEquals("PublicEnemy", movies.get(0).getTitle());
+      //  assertEquals("PublicEnemies", movies.get(0).getTitle());
+        assertEquals("Rango", movies.get(1).getTitle());
     }
     @Test
-    public void testGetMoviesWithSPecificDuration_geeft_lege_lijst_van_films_terug_met_de_specifieke_foute_duur_limiet_geeft_niks_terug(){
-        List<Movie> movies=facade.getMoviesWithSpecificDuration(100);
+    public void testGetMoviesWithSPecificDuration_geeft_lege_lijst_van_films_terug_met_de_specifieke_foute_duur_limiet(){
+        List<Movie> movies=facade.getMoviesWithSpecificDuration(80);
         assertTrue(movies.isEmpty());
+    }
+
+    @Test
+    public void testGetMoviesWithSPecificDuration_geeft__lijst_van_films_terug_met_de_specifieke__duur_limiet(){
+        List<Movie> movies=facade.getMoviesWithSpecificDuration(100);
+        assertEquals("Rango",movies.get(0).getTitle());
     }
     @org.junit.After
     public void tearDown()  {

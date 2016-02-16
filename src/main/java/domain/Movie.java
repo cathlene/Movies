@@ -1,3 +1,7 @@
+package domain;
+
+import domain.Actor;
+
 /**
  * Created by cathlene on 8/02/2016.
  */

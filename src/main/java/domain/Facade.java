@@ -1,3 +1,11 @@
+package domain;
+
+import db.ActorDb.ActorRepository;
+import db.ActorDb.ActorRepositoryStub;
+import db.ActorDb.DbActorType;
+import db.MovieDb.DbMovieType;
+import db.MovieDb.MovieRepository;
+
 import java.util.List;
 
 /**
@@ -9,7 +17,7 @@ public class Facade {
     private MovieRepository movieRepository;
     public Facade(){
 
-        actorRepository= new ActorRepositoryStub(); ActorFactory.createRepository(DbActorType.ACTORREPOSITORYSQL);
+        actorRepository= ActorFactory.createRepository(DbActorType.ACTORREPOSITORYSTUB);
         movieRepository= MovieFactory.createRepository(DbMovieType.MOVIEREPOSITORYSTUB);
     }
 

@@ -1,3 +1,5 @@
+package domain;
+
 /**
  * Created by cathlene on 8/02/2016.
  */
@@ -8,7 +10,7 @@ public class Actor {
     private int leeftijd;
     private String id;
 
-    public  Actor(String naam, String Voornaam, int leeftijd, String id){
+    public  Actor(String naam, String voornaam, int leeftijd, String id){
         this.setNaam(naam);
         this.setVoornaam(voornaam);
         this.setLeeftijd(leeftijd);

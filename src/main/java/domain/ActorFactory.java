@@ -1,3 +1,6 @@
+package domain;
+import db.ActorDb.*;
+
 /**
  * Created by cathlene on 15/02/2016.
  */
@@ -13,7 +16,7 @@ public class ActorFactory {
                 throw new IllegalArgumentException("invalid type");
         }
 
-        }
-
     }
+
+}
 

@@ -1,3 +1,8 @@
+package db.MovieDb;
+
+import domain.Actor;
+import domain.Movie;
+
 import java.util.List;
 
 /**
