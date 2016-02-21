@@ -35,6 +35,63 @@ public class FacadeTest {
     assertEquals(actor.getId(), facade.getActor("John").getId());
 
     }
+    @Test
+    public void testRemove_actor_met_geldige_waarden_verwijdert_actor(){
+        facade.addActor(actor);
+        assertEquals(1,facade.getActorRepository().getAantalActors());
+        facade.removeActor(actor);
+        assertEquals(0,facade.getActorRepository().getAantalActors());
+
+    }
+
+    @Test
+    public void testUpdate_actor_met_geldige_waarden_update_actor(){
+        assertEquals(55, facade.getActorRepository().getActor("John").getLeeftijd());
+      facade.getActorRepository().updateActor(new Actor("Johnny", "Depp", 56,"John"));
+        assertEquals(56, facade.getActorRepository().getActor("John").getLeeftijd());
+    }
+
+    @Test
+    public void testUpdate_Movie_met_geldige_waarden_update_movie(){
+        assertEquals(118, facade.getMovieRepository().getMovie("PublicEnemies").getDuur());
+        facade.getMovieRepository().updateMovie(new Movie("PublicEnemies", 110,actor));
+        assertEquals(110,facade.getMovieRepository().getMovie("PublicEnemies").getDuur());
+    }
+
+    @Test
+    public void testRemove_movie_met_geldige_waarden_verwijdert_movie(){
+        facade.addMovie(movie);
+        assertEquals(2,facade.getMovieRepository().getAantalMovies());
+        facade.removeMovie(movie);
+        assertEquals(1,facade.getMovieRepository().getAantalMovies());
+
+    }
+
+    @Test(expected=DbException.class)
+    public void testRemove_movie_met_ongeldige_waarden_geeft_DbExcecption(){
+        facade.removeMovie(new Movie("Ranbo", 96, new Actor("Johnny", "Depp",55,"John")));
+        assertEquals(1,facade.getMovieRepository().getAantalMovies());
+
+    }
+    @Test(expected=DomainException.class)
+    public void testRemove_movie_met_null_waarden_geeft_DomainExcecption(){
+        facade.removeMovie(new Movie(null, 96, new Actor("Johnny", "Depp",55,"John")));
+        assertEquals(1,facade.getMovieRepository().getAantalMovies());
+
+    }
+    @Test(expected=DbException.class)
+    public void testRemove_actor_met_ongeldige_waarden_geeft_DbExcecption(){
+        facade.removeActor( new Actor("Johnny", "Depp", 55,"Joh"));
+        assertEquals(1,facade.getMovieRepository().getAantalMovies());
+
+    }
+    @Test(expected=DomainException.class)
+    public void testRemove_actor_met_null_waarden_geeft_DomainExcecption(){
+        facade.removeActor( new Actor("Johnny", "Depp", 55,null));
+        assertEquals(1,facade.getMovieRepository().getAantalMovies());
+
+    }
+
     @Test(expected = DbException.class)
     public void testGetter_actor_met_fouten_waarden(){
         assertEquals(actor.getId(), facade.getActor("Joh").getId());
@@ -55,9 +112,8 @@ public class FacadeTest {
     @Test
     public void testAdd_movie_met_juiste_parameters_voegt_movie_toe(){
 
-        MovieRepository movieRepository = new MovieRepositoryStub();
-        movieRepository.addMovie(movie);
-        assertEquals(2,movieRepository.getAantalMovies());
+        facade.getMovieRepository().addMovie(movie);
+        assertEquals(2,facade.getMovieRepository().getAantalMovies());
     }
 
     @Test

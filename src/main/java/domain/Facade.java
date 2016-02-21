@@ -27,6 +27,24 @@ public class Facade {
     public void addActor(Actor actor){
         actorRepository.addActor(actor);
     }
+    public void removeActor(Actor actor){
+        actorRepository.removeActor(actor);
+    }
+    public void updateMovie(Movie movie){
+        movieRepository.updateMovie(movie);
+    }
+    public void updateActor(Actor actor){
+        actorRepository.updateActor(actor);
+    }
+    public void removeMovie(Movie movie){
+        movieRepository.removeMovie(movie);
+    }
+    public MovieRepository getMovieRepository(){
+        return this.movieRepository;
+    }
+    public ActorRepository getActorRepository(){
+        return this.actorRepository;
+    }
 
     public Movie getMovie(String title){
         return movieRepository.getMovie(title);

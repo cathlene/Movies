@@ -21,7 +21,7 @@ public class ActorRepositoryStub implements ActorRepository {
         this.addActor(new Actor("Johnny", "Depp", 55,"John"));
     }
     public void addActor(Actor actor) {
-        if (actor.getId()==null || actor.getId().isEmpty() ){
+        if (actor==null ){
             throw new DbException("Geen geldige actor");
         }
         actors.put(actor.getId(),actor);
@@ -29,14 +29,14 @@ public class ActorRepositoryStub implements ActorRepository {
     }
 
     public void removeActor(Actor actor) {
-        if (actor.getId()==null || actor.getId().isEmpty() || !actors.containsKey(actor.getId())){
+        if (!actors.containsKey(actor.getId())){
             throw new DbException("Geen geldige actor");
         }
         actors.remove(actor.getId());
     }
 
     public void updateActor(Actor actor) {
-        if (actor.getId()==null || actor.getId().isEmpty() || !actors.containsKey(actor.getId())){
+        if (!actors.containsKey(actor.getId())){
             throw new DbException("Geen geldige actor");
         }
         actors.put(actor.getId(),actor);

@@ -20,23 +20,23 @@ public class MovieRepositoryStub implements MovieRepository{
 
     }
     public void addMovie(Movie movie) {
-        if (movie.getTitle()==null || movie.getTitle().isEmpty()){
-            throw new IllegalArgumentException("Geen geldige movie");
+        if (movie==null){
+            throw new DbException("Geen geldige movie");
         }
         movies.put(movie.getTitle(),movie);
 
     }
 
     public void removeMovie(Movie movie) {
-        if (movie.getTitle()==null || movie.getTitle().isEmpty() || !movies.containsKey(movie.getTitle())){
-            throw new IllegalArgumentException("Geen geldige movie");
+        if (!movies.containsKey(movie.getTitle())){
+            throw new DbException("Geen geldige movie");
         }
         movies.remove(movie.getTitle());
     }
 
     public void updateMovie(Movie movie) {
-        if (movie.getTitle()==null || movie.getTitle().isEmpty() || !movies.containsKey(movie.getTitle())){
-            throw new IllegalArgumentException("Geen geldige movie");
+        if (!movies.containsKey(movie.getTitle())){
+            throw new DbException("Geen geldige movie");
         }
         movies.put(movie.getTitle(),movie);
 
