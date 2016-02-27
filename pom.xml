@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.internetprogrammeren</groupId>
-    <artifactId>CoolThings</artifactId>
+    <artifactId>Movies</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>
@@ -23,7 +23,7 @@
         <version>4.11</version>
     </dependency>
 </dependencies>
-
+    <name>Movies</name>
 </project>
 
 
