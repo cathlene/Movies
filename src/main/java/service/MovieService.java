@@ -33,8 +33,11 @@ public class MovieService {
      public List<Movie> getMoviesWithSpecificActor(Actor actor){
         return movieRepository.getMoviesWithSpecificActor(actor);
     }
-      public Movie getMovie(String title){
-        return movieRepository.getMovie(title);
+      public Movie getMovie(Movie movie){
+        return movieRepository.getMovie(movie);
+    }
+       public Movie getMovie(long id){
+        return movieRepository.getMovie(id);
     }
        public void removeMovie(Movie movie){
         movieRepository.removeMovie(movie);

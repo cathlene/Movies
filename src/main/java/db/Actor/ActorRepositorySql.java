@@ -35,4 +35,12 @@ public class ActorRepositorySql implements ActorRepository {
 
     public void saveOrUpdate(Actor actor) {
     }
+
+    public Actor getActor(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Actor getActor(String naam, String voornaam) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

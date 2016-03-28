@@ -12,8 +12,8 @@ public interface ActorRepository {
     void addActor(Actor actor);
     void removeActor(Actor actor);
     void updateActor(Actor actor);
-
-    Actor getActor(String id);
+    Actor getActor(long id);
+    Actor getActor(String naam, String voornaam);
     int getAantalActors();
     List<Actor> getAllActors(); 
 

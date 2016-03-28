@@ -44,12 +44,19 @@ public class Facade {
         return this.actorService;
     }
 
-    public Movie getMovie(String title){
-        return movieService.getMovie(title);
+    public Movie getMovie(Movie movie){
+        return movieService.getMovie(movie);
     }
-    public Actor getActor(String id){
+     public Movie getMovie(long id){
+        return movieService.getMovie(id);
+    }
+    public Actor getActor(String naam, String voornaam){
+        return actorService.getActor(naam,voornaam);
+    }
+     public Actor getActor(long id){
         return actorService.getActor(id);
     }
+
     public List<Movie> getMoviesWithSpecificActor(Actor actor){
         return movieService.getMoviesWithSpecificActor(actor);
     }

@@ -13,7 +13,9 @@ public interface MovieRepository {
     void addMovie(Movie movie);
     void removeMovie(Movie movie);
     void updateMovie(Movie movie);
-    Movie getMovie(String title);
+    Movie getMovie(Movie movie);
+    Movie getMovie(long id);
+
    List<Movie> getAllMovies();
    int getAantalMovies();
     public List<Movie> getMoviesWithSpecificDuration(int duur);

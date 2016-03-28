@@ -13,15 +13,26 @@ import java.util.Map;
  * Created by cathlene on 8/02/2016.
  */
 public class ActorRepositoryStub implements ActorRepository {
+    private static int counter = 0;
 
-    private Map<String, Actor> actors;
+    private static Map<Long, Actor> actors;
+    
     public ActorRepositoryStub(){
 
-        actors= new HashMap<String, Actor>();
-        this.addActor(new Actor("Johnny", "Depp", 55,"John"));
+        actors= new HashMap<Long, Actor>();
+        this.addActor(new Actor("Johnny", "Depp", 55));
     }
+    
+     public static int getNextID(){
+        counter++;
+        return counter;
+    }
+     
     public void addActor(Actor actor) {
-      
+        if(actor==null){
+            throw new DbException("Geen geldige actor");
+        }
+         actor.setId(ActorRepositoryStub.getNextID());
         actors.put(actor.getId(),actor);
 
     }
@@ -42,8 +53,8 @@ public class ActorRepositoryStub implements ActorRepository {
     }
 
 
-    public Actor getActor(String id) {
-        if (id==null || id.isEmpty() || !actors.containsKey(id)){
+    public Actor getActor(long id) {
+        if (!actors.containsKey(id)){
             throw new DbException("Geen geldige Id");
         }
         return actors.get(id);
@@ -69,4 +80,20 @@ public class ActorRepositoryStub implements ActorRepository {
             updateActor(actor);
         }
     }
+
+    public Actor getActor(String naam, String voornaam) {
+
+        if(naam==null || voornaam==null){
+        throw new DbException("Geen geldige naam/voornaam");
+        }
+        List<Actor> actorsLijst = this.getAllActors();
+
+        for(Actor actor: actorsLijst){
+            if(actor.getNaam().equals(naam) && actor.getVoornaam().equals(voornaam)){
+                return actor;
+            }
+        }
+        return null;
+    }
+   
 }

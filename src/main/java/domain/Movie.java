@@ -1,6 +1,8 @@
 package domain;
 
 import domain.Actor;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -10,6 +12,11 @@ public class Movie {
     private String title;
     private int duur;
     private Actor hoofdrolSpeler;
+    
+    @Id
+    @GeneratedValue
+    private long id;
+    
     public Movie(){}
 
     public Movie(String title, int duur, Actor hoofdrolspeler) {
@@ -17,11 +24,23 @@ public class Movie {
         this.setDuur(duur);
         this.setHoofdrolSpeler(hoofdrolspeler);
     }
-
+   
+ public Movie(String title, int duur, Actor hoofdrolspeler, long id) {
+        this.setTitle(title);
+        this.setDuur(duur);
+        this.setHoofdrolSpeler(hoofdrolspeler);
+        this.setId(id);
+    }
     public String getTitle() {
         return title;
     }
+public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
     public void setTitle(String title) {
         if(title ==null || title.isEmpty() ){
             throw new DomainException("geen geldige titel");

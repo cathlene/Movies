@@ -11,30 +11,40 @@ import java.util.List;
 public class MovieRepositorySql implements MovieRepository {
 
     public void addMovie(Movie movie) {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void removeMovie(Movie movie) {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void updateMovie(Movie movie) {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Movie getMovie(String title) {
-        return null;
+    public Movie getMovie(Movie movie) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Movie getMovie(long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public List<Movie> getAllMovies() {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getAantalMovies() {
-        return 0;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public List<Movie> getMoviesWithSpecificDuration(int duur){
-        return null;
+
+    public List<Movie> getMoviesWithSpecificDuration(int duur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public List<Movie> getMoviesWithSpecificActor(Actor actor){return null;}
+
+    public List<Movie> getMoviesWithSpecificActor(Actor actor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }

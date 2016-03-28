@@ -1,5 +1,8 @@
 package domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Created by cathlene on 8/02/2016.
  */
@@ -8,16 +11,24 @@ public class Actor {
     private String naam;
     private String voornaam;
     private int leeftijd;
-    private String id;
+   
+    @Id
+    @GeneratedValue
+    private long id;
     private String fullName;
 
-    public  Actor(String voornaam, String naam, int leeftijd, String id){
+    public  Actor(String voornaam, String naam, int leeftijd){
+        this.setNaam(naam);
+        this.setVoornaam(voornaam);
+        this.setLeeftijd(leeftijd);
+    }
+ public  Actor(String voornaam, String naam, int leeftijd, long id){
         this.setNaam(naam);
         this.setVoornaam(voornaam);
         this.setLeeftijd(leeftijd);
         this.setId(id);
     }
-
+    
     public Actor() {
     }
 
@@ -56,18 +67,31 @@ public class Actor {
         this.leeftijd = leeftijd;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
     public String getFullName(){
     return this.getVoornaam()+ " "+ this.getNaam();
     }
 
-    public void setId(String id) {
-        if(id==null || id.isEmpty()){
-            throw new DomainException("geen geldige id");
-        }
+    public void setId(long id) {
+        
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Actor){
+            Actor actor = (Actor) obj;
+            if(actor.voornaam.equals(this.voornaam) && actor.naam.equals(this.naam) && actor.leeftijd == this.leeftijd){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
 }

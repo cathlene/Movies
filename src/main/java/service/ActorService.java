@@ -39,7 +39,10 @@ public class ActorService {
     }
 
    
-    public Actor getActor(String id){
+    public Actor getActor(String naam, String voornaam){
+        return actorRepository.getActor(naam, voornaam);
+    }
+     public Actor getActor(long id){
         return actorRepository.getActor(id);
     }
 
