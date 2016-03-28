@@ -25,17 +25,17 @@ public class FacadeTest {
 
         actor= new Actor("Johnny", "Depp", 55,"John");
         movie= new Movie("PublicEnemies", 118,actor);
-       facade= new Facade("movieStub");
+       facade= new Facade("stub");
 
     }
 
     @Test
-    public void testGetter_actor_met_geldige_waarden(){
+    public void testGetter_actor_met_correcte_naam(){
     assertEquals(actor.getId(), facade.getActor("John").getId());
 
     }
     @Test
-    public void testRemove_actor_met_geldige_waarden_verwijdert_actor(){
+    public void testRemoveActor_met_correcte_voornaam_naam_id_leeftijd_verwijdert_actor(){
         facade.addActor(actor);
         assertEquals(1,facade.getActorRepository().getAantalActors());
         facade.removeActor(actor);
@@ -44,21 +44,21 @@ public class FacadeTest {
     }
 
     @Test
-    public void testUpdate_actor_met_geldige_waarden_update_actor(){
+    public void testUpdateActor_met_correcte_voornaam_naam_id_leeftijd_update_actor(){
         assertEquals(55, facade.getActorRepository().getActor("John").getLeeftijd());
       facade.getActorRepository().updateActor(new Actor("Johnny", "Depp", 56,"John"));
         assertEquals(56, facade.getActorRepository().getActor("John").getLeeftijd());
     }
 
     @Test
-    public void testUpdate_Movie_met_geldige_waarden_update_movie(){
+    public void testUpdateMovie_met_correcte_titel_duur_hoofdrolspeler_update_movie(){
         assertEquals(118, facade.getMovieRepository().getMovie("PublicEnemies").getDuur());
         facade.getMovieRepository().updateMovie(new Movie("PublicEnemies", 110,actor));
         assertEquals(110,facade.getMovieRepository().getMovie("PublicEnemies").getDuur());
     }
 
     @Test
-    public void testRemove_movie_met_geldige_waarden_verwijdert_movie(){
+    public void testRemoveMovie_met_correcte_titel_duur_hoofdrolspeler_verwijdert_movie(){
         facade.addMovie(movie);
         assertEquals(2,facade.getMovieRepository().getAantalMovies());
         facade.removeMovie(movie);
@@ -67,56 +67,56 @@ public class FacadeTest {
     }
 
     @Test(expected=DbException.class)
-    public void testRemove_movie_met_ongeldige_waarden_geeft_DbExcecption(){
+    public void testRemoveMovie_geeft_DbExcecption_wanneer_movie_met_bepaalde_titel_niet_bestaat(){
         facade.removeMovie(new Movie("Ranbo", 96, new Actor("Johnny", "Depp",55,"John")));
         assertEquals(1,facade.getMovieRepository().getAantalMovies());
 
     }
-    @Test(expected=DomainException.class)
-    public void testRemove_movie_met_null_waarden_geeft_DomainExcecption(){
-        facade.removeMovie(new Movie(null, 96, new Actor("Johnny", "Depp",55,"John")));
+    @Test(expected=DbException.class)
+    public void testRemoveMovie_met_null_waarden_geeft_DbExcecption(){
+        facade.removeMovie(null);
         assertEquals(1,facade.getMovieRepository().getAantalMovies());
 
     }
     @Test(expected=DbException.class)
-    public void testRemove_actor_met_ongeldige_waarden_geeft_DbExcecption(){
+    public void testRemoveActor_geeft_DbExcecption_wanneer_de_acteur_met_id_niet_bestaat(){
         facade.removeActor( new Actor("Johnny", "Depp", 55,"Joh"));
         assertEquals(1,facade.getMovieRepository().getAantalMovies());
 
     }
-    @Test(expected=DomainException.class)
-    public void testRemove_actor_met_null_waarden_geeft_DomainExcecption(){
-        facade.removeActor( new Actor("Johnny", "Depp", 55,null));
+    @Test(expected=DbException.class)
+    public void testRemoveActor_met_null_waarden_geeft_DbExcecption(){
+        facade.removeActor(null);
         assertEquals(1,facade.getMovieRepository().getAantalMovies());
 
     }
 
     @Test(expected = DbException.class)
-    public void testGetter_actor_met_fouten_waarden(){
+    public void testGetActor_met_niet_geldige_id_gooit_DbException(){
         assertEquals(actor.getId(), facade.getActor("Joh").getId());
 
     }
 
     @Test(expected = DbException.class)
-    public void testGetter_movie_met_fouten_waarden(){
+    public void testGetMovie_met_ongeldige_title_gooit_DbException(){
         assertEquals(movie.getTitle(), facade.getMovie("p").getTitle());
 
     }
 
     @Test
-    public void testGetter_movie_met_geldige_waarden(){
+    public void testGetMovie_met_correcte_title_duur_hoofdrolSpeler(){
         assertEquals(movie.getTitle(), facade.getMovie("PublicEnemies").getTitle());
 
     }
     @Test
-    public void testAdd_movie_met_juiste_parameters_voegt_movie_toe(){
+    public void testAdd_movie_met_correcte_voornaam_naam_id_leeftijd_voegt_movie_toe(){
 
         facade.getMovieRepository().addMovie(movie);
         assertEquals(2,facade.getMovieRepository().getAantalMovies());
     }
 
     @Test
-    public void testAdd_actor_met_juiste_parameters_voegt_actor_toe(){
+    public void testAdd_actor_met_correcte_voornaam_naam_id_leeftijd_voegt_actor_toe(){
 
         ActorRepository actorRepository = new ActorRepositoryStub();
         actorRepository.addActor(actor);

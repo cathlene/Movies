@@ -27,15 +27,18 @@ public class ActorRepositoryStub implements ActorRepository {
     }
 
     public void removeActor(Actor actor) {
-        if (!actors.containsKey(actor.getId())){
+        if (actor==null || !actors.containsKey(actor.getId())){
             throw new DbException("Geen geldige actor");
         }
         actors.remove(actor.getId());
     }
 
     public void updateActor(Actor actor) {
+        if(actor==null){
+            throw new DbException("Geen geldige actor");
+        }
         actors.put(actor.getId(),actor);
-
+        
     }
 
 

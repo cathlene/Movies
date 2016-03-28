@@ -5,8 +5,8 @@ package db.Actor;
  */
 public enum DbActorType {
 
-    ACTORREPOSITORYSQL("actorSql"),
-    ACTORREPOSITORYSTUB("actorStub");
+    ACTORREPOSITORYSQL("sql"),
+    ACTORREPOSITORYSTUB("stub");
 
 
     private String type;

@@ -5,8 +5,8 @@ package db.Movie;
  */
 public enum DbMovieType {
 
-    MOVIEREPOSITORYSQL("movieSql"),
-    MOVIEREPOSITORYSTUB("movieStub");
+    MOVIEREPOSITORYSQL("sql"),
+    MOVIEREPOSITORYSTUB("stub");
 
 
     private String type;

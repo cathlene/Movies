@@ -28,14 +28,14 @@ public class MovieRepositoryStub implements MovieRepository{
     }
 
     public void removeMovie(Movie movie) {
-        if (!movies.containsKey(movie.getTitle())){
+        if (movie==null || !movies.containsKey(movie.getTitle())){
             throw new DbException("Geen geldige movie");
         }
         movies.remove(movie.getTitle());
     }
 
     public void updateMovie(Movie movie) {
-        if (!movies.containsKey(movie.getTitle())){
+        if (movie==null || !movies.containsKey(movie.getTitle())){
             throw new DbException("Geen geldige movie");
         }
         movies.put(movie.getTitle(),movie);
