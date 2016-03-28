@@ -1,6 +1,7 @@
-package db.ActorDb;
+package db.Actor;
 
 import domain.Actor;
+import java.util.List;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -14,4 +15,7 @@ public interface ActorRepository {
 
     Actor getActor(String id);
     int getAantalActors();
+    List<Actor> getAllActors(); 
+
+    public void saveOrUpdate(Actor actor);
 }

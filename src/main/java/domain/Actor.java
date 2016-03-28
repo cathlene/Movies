@@ -9,13 +9,18 @@ public class Actor {
     private String voornaam;
     private int leeftijd;
     private String id;
+    private String fullName;
 
-    public  Actor(String naam, String voornaam, int leeftijd, String id){
+    public  Actor(String voornaam, String naam, int leeftijd, String id){
         this.setNaam(naam);
         this.setVoornaam(voornaam);
         this.setLeeftijd(leeftijd);
         this.setId(id);
     }
+
+    public Actor() {
+    }
+
 
     public String getNaam() {
         return naam;
@@ -33,11 +38,12 @@ public class Actor {
     }
 
     public void setVoornaam(String voornaam)
-    {
+    {       
         if(voornaam==null || voornaam.isEmpty()){
             throw new DomainException("geen geldige voornaam");
         }
         this.voornaam = voornaam;
+              
     }
     public int getLeeftijd() {
         return leeftijd;
@@ -52,6 +58,9 @@ public class Actor {
 
     public String getId() {
         return id;
+    }
+    public String getFullName(){
+    return this.getVoornaam()+ " "+ this.getNaam();
     }
 
     public void setId(String id) {

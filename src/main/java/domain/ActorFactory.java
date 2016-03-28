@@ -1,5 +1,8 @@
 package domain;
-import db.ActorDb.*;
+import db.Actor.ActorRepositoryStub;
+import db.Actor.ActorRepositorySql;
+import db.Actor.DbActorType;
+import db.Actor.ActorRepository;
 
 /**
  * Created by cathlene on 15/02/2016.

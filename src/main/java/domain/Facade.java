@@ -1,10 +1,10 @@
 package domain;
 
-import db.ActorDb.ActorRepository;
-import db.ActorDb.ActorRepositoryStub;
-import db.ActorDb.DbActorType;
-import db.MovieDb.DbMovieType;
-import db.MovieDb.MovieRepository;
+import db.Actor.ActorRepository;
+import db.Actor.ActorRepositoryStub;
+import db.Actor.DbActorType;
+import db.Movie.DbMovieType;
+import db.Movie.MovieRepository;
 
 import java.util.List;
 
@@ -59,5 +59,16 @@ public class Facade {
         return movieRepository.getMoviesWithSpecificDuration(duur);
     }
 
+    public List<Movie>getMovies(){
+    return movieRepository.getAllMovies();
+    }
+
+    public List<Actor> getActors() {
+        return actorRepository.getAllActors();
+    }
+
+    public void saveOrUpdate(Actor actor) {
+         actorRepository.saveOrUpdate(actor);
+    }
 
 }

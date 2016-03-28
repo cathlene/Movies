@@ -1,12 +1,10 @@
-import db.ActorDb.ActorRepository;
-import db.ActorDb.ActorRepositoryStub;
+
+package domain;
+import db.Actor.ActorRepository;
+import db.Actor.ActorRepositoryStub;
 import db.DbException;
-import db.MovieDb.MovieRepository;
-import db.MovieDb.MovieRepositoryStub;
-import domain.Actor;
-import domain.DomainException;
-import domain.Facade;
-import domain.Movie;
+import domain.*;
+
 import org.junit.Test;
 
 import java.util.List;
@@ -100,7 +98,7 @@ public class FacadeTest {
 
     @Test(expected = DbException.class)
     public void testGetter_movie_met_fouten_waarden(){
-        assertEquals(actor.getId(), facade.getMovie("p").getTitle());
+        assertEquals(movie.getTitle(), facade.getMovie("p").getTitle());
 
     }
 
@@ -153,6 +151,12 @@ public class FacadeTest {
     public void testGetMoviesWithSPecificDuration_geeft__lijst_van_films_terug_met_de_specifieke__duur_limiet(){
         List<Movie> movies=facade.getMoviesWithSpecificDuration(100);
         assertEquals("Rango",movies.get(0).getTitle());
+    }
+    @Test
+    public void testGetMovies_returns_list_with_all_Movies(){
+    
+        List<Movie> movies= facade.getMovies();
+        assertEquals(2, movies.size());
     }
     @org.junit.After
     public void tearDown()  {

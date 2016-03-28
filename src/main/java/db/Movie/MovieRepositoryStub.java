@@ -1,4 +1,4 @@
-package db.MovieDb;
+package db.Movie;
 
 import db.DbException;
 import domain.Actor;

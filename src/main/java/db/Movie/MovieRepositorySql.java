@@ -1,4 +1,4 @@
-package db.MovieDb;
+package db.Movie;
 
 import domain.Actor;
 import domain.Movie;

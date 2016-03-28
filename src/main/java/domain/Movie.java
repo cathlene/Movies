@@ -10,6 +10,7 @@ public class Movie {
     private String title;
     private int duur;
     private Actor hoofdrolSpeler;
+    public Movie(){}
 
     public Movie(String title, int duur, Actor hoofdrolspeler) {
         this.setTitle(title);

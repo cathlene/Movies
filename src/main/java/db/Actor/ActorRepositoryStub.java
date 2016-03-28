@@ -1,4 +1,4 @@
-package db.ActorDb;
+package db.Actor;
 
 import domain.Actor;
 import domain.DomainException;
@@ -21,9 +21,7 @@ public class ActorRepositoryStub implements ActorRepository {
         this.addActor(new Actor("Johnny", "Depp", 55,"John"));
     }
     public void addActor(Actor actor) {
-        if (actor==null ){
-            throw new DbException("Geen geldige actor");
-        }
+      
         actors.put(actor.getId(),actor);
 
     }
@@ -36,9 +34,6 @@ public class ActorRepositoryStub implements ActorRepository {
     }
 
     public void updateActor(Actor actor) {
-        if (!actors.containsKey(actor.getId())){
-            throw new DbException("Geen geldige actor");
-        }
         actors.put(actor.getId(),actor);
 
     }
@@ -57,5 +52,18 @@ public class ActorRepositoryStub implements ActorRepository {
 
     public List<Actor> getAllActors(){
         return new ArrayList<Actor>(actors.values());
+    }
+
+    public void saveOrUpdate(Actor actor) {
+          if (actor==null ){
+            throw new DbException("Geen geldige actor");
+        }
+
+        if(!actors.containsKey(actor.getId())){
+            this.addActor(actor);
+        }
+        else{
+            updateActor(actor);
+        }
     }
 }

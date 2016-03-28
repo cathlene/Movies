@@ -1,6 +1,7 @@
-package db.ActorDb;
+package db.Actor;
 
 import domain.Actor;
+import java.util.List;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -26,5 +27,12 @@ public class ActorRepositorySql implements ActorRepository {
 
     public int getAantalActors() {
         return 0;
+    }
+
+    public List<Actor> getAllActors() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void saveOrUpdate(Actor actor) {
     }
 }

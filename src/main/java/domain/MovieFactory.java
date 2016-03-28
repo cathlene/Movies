@@ -1,6 +1,9 @@
 package domain;
 
-import db.MovieDb.*;
+import db.Movie.MovieRepositoryStub;
+import db.Movie.DbMovieType;
+import db.Movie.MovieRepository;
+import db.Movie.MovieRepositorySql;
 
 /**
  * Created by cathlene on 15/02/2016.
