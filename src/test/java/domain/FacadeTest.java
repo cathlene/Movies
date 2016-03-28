@@ -19,12 +19,13 @@ public class FacadeTest {
     private Actor actor;
     private Movie movie;
     private Facade facade;
+    
     @org.junit.Before
     public void setUp() {
 
         actor= new Actor("Johnny", "Depp", 55,"John");
         movie= new Movie("PublicEnemies", 118,actor);
-       facade= new Facade();
+       facade= new Facade("movieStub");
 
     }
 

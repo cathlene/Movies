@@ -9,15 +9,12 @@ import db.Actor.ActorRepository;
  */
 public class ActorFactory {
 
-    public static ActorRepository createRepository(DbActorType type){
-        switch (type){
-            case ACTORREPOSITORYSTUB:
-                return new ActorRepositoryStub();
-            case ACTORREPOSITORYSQL:
-                return new ActorRepositorySql();
-            default:
-                throw new DomainException("invalid type");
-        }
+    public static ActorRepository createRepository(String repository){
+       if(repository.equals(DbActorType.ACTORREPOSITORYSTUB.getType())){
+           return new ActorRepositoryStub();
+       }else {
+           return new ActorRepositorySql();
+       }
 
     }
 

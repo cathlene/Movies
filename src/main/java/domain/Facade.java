@@ -1,74 +1,72 @@
 package domain;
 
-import db.Actor.ActorRepository;
-import db.Actor.ActorRepositoryStub;
-import db.Actor.DbActorType;
-import db.Movie.DbMovieType;
-import db.Movie.MovieRepository;
 
 import java.util.List;
+import service.ActorService;
+import service.MovieService;
 
 /**
  * Created by cathlene on 8/02/2016.
  */
 public class Facade {
 
-    private ActorRepository actorRepository;
-    private MovieRepository movieRepository;
-    public Facade(){
+   private ActorService actorService;
+    private MovieService movieService;
+    public Facade(String repository){
 
-        actorRepository= ActorFactory.createRepository(DbActorType.ACTORREPOSITORYSTUB);
-        movieRepository= MovieFactory.createRepository(DbMovieType.MOVIEREPOSITORYSTUB);
+      actorService= new ActorService(repository);
+      movieService= new MovieService(repository);
+        
     }
 
     public void addMovie(Movie movie){
-        movieRepository.addMovie(movie);
+        movieService.addMovie(movie);
     }
     public void addActor(Actor actor){
-        actorRepository.addActor(actor);
+        actorService.addActor(actor);
     }
     public void removeActor(Actor actor){
-        actorRepository.removeActor(actor);
+        actorService.removeActor(actor);
     }
     public void updateMovie(Movie movie){
-        movieRepository.updateMovie(movie);
+        movieService.updateMovie(movie);
     }
     public void updateActor(Actor actor){
-        actorRepository.updateActor(actor);
+        actorService.updateActor(actor);
     }
     public void removeMovie(Movie movie){
-        movieRepository.removeMovie(movie);
+        movieService.removeMovie(movie);
     }
-    public MovieRepository getMovieRepository(){
-        return this.movieRepository;
+    public MovieService getMovieRepository(){
+        return this.movieService;
     }
-    public ActorRepository getActorRepository(){
-        return this.actorRepository;
+    public ActorService getActorRepository(){
+        return this.actorService;
     }
 
     public Movie getMovie(String title){
-        return movieRepository.getMovie(title);
+        return movieService.getMovie(title);
     }
     public Actor getActor(String id){
-        return actorRepository.getActor(id);
+        return actorService.getActor(id);
     }
     public List<Movie> getMoviesWithSpecificActor(Actor actor){
-        return movieRepository.getMoviesWithSpecificActor(actor);
+        return movieService.getMoviesWithSpecificActor(actor);
     }
     public List<Movie> getMoviesWithSpecificDuration(int duur){
-        return movieRepository.getMoviesWithSpecificDuration(duur);
+        return movieService.getMoviesWithSpecificDuration(duur);
     }
 
     public List<Movie>getMovies(){
-    return movieRepository.getAllMovies();
+    return movieService.getMovies();
     }
 
     public List<Actor> getActors() {
-        return actorRepository.getAllActors();
+        return actorService.getActors();
     }
 
     public void saveOrUpdate(Actor actor) {
-         actorRepository.saveOrUpdate(actor);
+         actorService.saveOrUpdate(actor);
     }
 
 }
