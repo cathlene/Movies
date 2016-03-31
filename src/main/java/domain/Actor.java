@@ -1,11 +1,13 @@
 package domain;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
  * Created by cathlene on 8/02/2016.
  */
+@Entity
 public class Actor {
 
     private String naam;
@@ -21,12 +23,15 @@ public class Actor {
         this.setNaam(naam);
         this.setVoornaam(voornaam);
         this.setLeeftijd(leeftijd);
+        this.setFullName(voornaam, naam);
     }
  public  Actor(String voornaam, String naam, int leeftijd, long id){
         this.setNaam(naam);
         this.setVoornaam(voornaam);
         this.setLeeftijd(leeftijd);
         this.setId(id);
+        this.setFullName(voornaam, naam);
+
     }
     
     public Actor() {
@@ -70,8 +75,12 @@ public class Actor {
     public long getId() {
         return id;
     }
+    
+    public void setFullName(String voornaam, String naam){
+        this.fullName=this.getVoornaam()+ " "+ this.getNaam();
+    }
     public String getFullName(){
-    return this.getVoornaam()+ " "+ this.getNaam();
+    return fullName;
     }
 
     public void setId(long id) {

@@ -1,4 +1,4 @@
-package domain;
+package db.Actor;
 import db.Actor.ActorRepositoryStub;
 import db.Actor.ActorRepositorySql;
 import db.Actor.DbActorType;
@@ -13,7 +13,7 @@ public class ActorFactory {
        if(repository.equals(DbActorType.ACTORREPOSITORYSTUB.getType())){
            return new ActorRepositoryStub();
        }else {
-           return new ActorRepositorySql();
+           return new ActorRepositorySql("Movies");
        }
 
     }

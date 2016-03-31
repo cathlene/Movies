@@ -1,12 +1,14 @@
 package domain;
 
 import domain.Actor;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
  * Created by cathlene on 8/02/2016.
  */
+@Entity
 public class Movie {
 
     private String title;

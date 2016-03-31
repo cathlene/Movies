@@ -36,11 +36,7 @@ public class FacadeTest {
        facade.addActor(actor);
 
     }
-@Test
-public void test_equalsMethode(){
-    assertTrue(actor2.equals(actor2));
-}
-    
+ 
     @Test
     public void testGetActor_met_correcte_naam_voornaam(){
      facade.addActor(actor2);

@@ -23,7 +23,7 @@ public class ActorRepositoryStub implements ActorRepository {
         this.addActor(new Actor("Johnny", "Depp", 55));
     }
     
-     public static int getNextID(){
+     public static int getID(){
         counter++;
         return counter;
     }
@@ -32,7 +32,7 @@ public class ActorRepositoryStub implements ActorRepository {
         if(actor==null){
             throw new DbException("Geen geldige actor");
         }
-         actor.setId(ActorRepositoryStub.getNextID());
+         actor.setId(ActorRepositoryStub.getID());
         actors.put(actor.getId(),actor);
 
     }
@@ -48,6 +48,7 @@ public class ActorRepositoryStub implements ActorRepository {
         if(actor==null){
             throw new DbException("Geen geldige actor");
         }
+        this.actors.remove(actor.getId());
         actors.put(actor.getId(),actor);
         
     }
@@ -69,14 +70,16 @@ public class ActorRepositoryStub implements ActorRepository {
     }
 
     public void saveOrUpdate(Actor actor) {
-          if (actor==null ){
+        if (actor==null ){
             throw new DbException("Geen geldige actor");
         }
 
-        if(!actors.containsKey(actor.getId())){
+        if(!actors.containsKey("add"+actor.getId())){
+            System.out.print(actor.getId());
             this.addActor(actor);
         }
         else{
+            System.out.print("update:"+actor.getId());
             updateActor(actor);
         }
     }
@@ -94,6 +97,10 @@ public class ActorRepositoryStub implements ActorRepository {
             }
         }
         return null;
+    }
+
+    public void removeActor(long id) {
+        actors.remove(id);
     }
    
 }

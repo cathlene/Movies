@@ -8,7 +8,7 @@ package service;
 import db.Actor.ActorRepository;
 import db.Actor.DbActorType;
 import domain.Actor;
-import domain.ActorFactory;
+import db.Actor.ActorFactory;
 import domain.Movie;
 import java.util.List;
 
@@ -50,10 +50,11 @@ public class ActorService {
         return actorRepository.getAllActors();
     }
 
-    public void saveOrUpdate(Actor actor) {
-         actorRepository.saveOrUpdate(actor);
-    }
     public int getAantalActors(){
     return actorRepository.getAantalActors();
+    }
+
+    public void removeActor(long id) {
+         actorRepository.removeActor(id);
     }
 }

@@ -1,4 +1,4 @@
-package domain;
+package db.Movie;
 
 import db.Movie.MovieRepositoryStub;
 import db.Movie.DbMovieType;
@@ -15,7 +15,7 @@ public class MovieFactory {
            return new MovieRepositoryStub();
        }
        else{
-       return new MovieRepositorySql();
+       return new MovieRepositorySql("Movies");
        }
 
     }

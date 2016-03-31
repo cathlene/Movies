@@ -1,46 +1,105 @@
 package db.Actor;
 
+import db.DbException;
 import domain.Actor;
+import domain.Movie;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  * Created by cathlene on 8/02/2016.
  */
 public class ActorRepositorySql implements ActorRepository {
 
+    private EntityManager manager;
+    private EntityManagerFactory factory;
+    public ActorRepositorySql(String name){
+    factory = Persistence.createEntityManagerFactory(name);
+        manager = factory.createEntityManager();
+    }
+    
+    
+    public void closeConnection() {
+        try {
+            manager.close();
+            factory.close();
+        } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
+    }
 
     public void addActor(Actor actor) {
-
+            manager.getTransaction().begin();
+            manager.persist(actor);
+            manager.flush(); 
+            manager.getTransaction().commit();
     }
 
     public void removeActor(Actor actor) {
-
+            manager.getTransaction().begin();
+            manager.remove(actor);
+            manager.flush(); 
+            manager.getTransaction().commit();
     }
 
     public void updateActor(Actor actor) {
 
+        try {
+            this.removeActor(actor);
+            this.addActor(actor);
+        } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
     }
 
-    public Actor getActor(String id) {
-        return null;
-    }
+   
 
     public int getAantalActors() {
-        return 0;
+         try {
+            Query query= manager.createQuery("select count(m) from Actor m");
+            return (Integer) query.getSingleResult();
+        } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
     }
 
     public List<Actor> getAllActors() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try {
+            Query query= manager.createQuery("select m from Actor m");
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
     }
 
-    public void saveOrUpdate(Actor actor) {
-    }
+    
 
     public Actor getActor(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+ try {
+            Query query= manager.createQuery("select m from Actor m where m.name like :actorId").setParameter("actorId", id);
+             Actor actor = (Actor) query.getSingleResult();
+            return actor;
+        } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
     }
 
     public Actor getActor(String naam, String voornaam) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try {
+            Query query= manager.createQuery("select m from Actor m where m.name= :naam AND m.voornaam = :voornaam");
+             Actor actor = (Actor) query.getSingleResult();
+            return actor;
+        } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
+    }
+
+    public void removeActor(long id) {
+        Actor actor= this.getActor(id);
+        this.removeActor(actor);
     }
 }

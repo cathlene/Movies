@@ -22,7 +22,7 @@ public class MovieRepositoryStub implements MovieRepository{
         this.addMovie(new Movie("Rango", 96, new Actor("Johnny", "Depp",55)));
 
     }
-     public static int getNextID(){
+     public static int getID(){
         counter++;
         return counter;
     }
@@ -30,7 +30,7 @@ public class MovieRepositoryStub implements MovieRepository{
         if (movie==null){
             throw new DbException("Geen geldige movie");
         }
-        movie.setId(MovieRepositoryStub.getNextID());
+        movie.setId(MovieRepositoryStub.getID());
         movies.put(movie.getId(),movie);
 
     }

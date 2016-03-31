@@ -28,6 +28,10 @@ public class Facade {
     public void removeActor(Actor actor){
         actorService.removeActor(actor);
     }
+     public void removeActor(long id){
+        actorService.removeActor(id);
+    }
+     
     public void updateMovie(Movie movie){
         movieService.updateMovie(movie);
     }
@@ -72,8 +76,6 @@ public class Facade {
         return actorService.getActors();
     }
 
-    public void saveOrUpdate(Actor actor) {
-         actorService.saveOrUpdate(actor);
-    }
+  
 
 }

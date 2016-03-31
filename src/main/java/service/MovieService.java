@@ -8,7 +8,7 @@ package service;
 import db.Movie.MovieRepository;
 import domain.Actor;
 import domain.Movie;
-import domain.MovieFactory;
+import db.Movie.MovieFactory;
 import java.util.List;
 
 /**
