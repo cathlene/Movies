@@ -26,11 +26,9 @@ public class FacadeTest {
 
         actor= new Actor("Johnny", "Depp", 55);
         actor2= new Actor("Willie","Bend",43);
-        actor3= new Actor("Gertje","Verhul",20);
         
         movie= new Movie("PublicEnemies", 118,actor);
         movie2= new Movie("Into the wild",120,actor2);
-        movie3= new Movie("Smurfen",96,actor3);
         
        facade= new Facade("stub");
        facade.addActor(actor);
@@ -126,13 +124,16 @@ public class FacadeTest {
 
     @Test
     public void testGetMoviesWithSPecificActor_geeft_lijst_van_films_terug_met_de_specifieke_geldige_acteur(){
+       facade.addMovie(new Movie("Spirit",78,new Actor("jennifer","Andi",53)));
        List<Movie> movies=facade.getMoviesWithSpecificActor(actor);
         assertEquals("PublicEnemies",movies.get(0).getTitle());
         assertEquals("Rango", movies.get(1).getTitle());
+        assertEquals(2, movies.size());
     }
 
     @Test
     public void testGetMoviesWithSPecificActor_geeft__lege_lijst_van_films_terug_met_de_specifieke_ongeldige_acteur(){
+       facade.addMovie(new Movie("Spirit",78,new Actor("bla","bla",53)));
         List<Movie> movies=facade.getMoviesWithSpecificActor(new Actor("Jeniffer", "Andi",53));
         assertTrue(movies.isEmpty());
     }

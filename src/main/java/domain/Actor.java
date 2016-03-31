@@ -110,17 +110,28 @@ public class Actor {
         this.id = id;
     }
 
-    @Override
+    
     public boolean equals(Object obj) {
         if (obj instanceof Actor) {
             Actor actor = (Actor) obj;
-            if (actor.voornaam.equals(this.voornaam) && actor.naam.equals(this.naam) && actor.leeftijd == this.leeftijd) {
-                return true;
-            } else {
-                return false;
-            }
+            return (actor.voornaam.equals(this.voornaam) && actor.naam.equals(this.naam) && actor.leeftijd == this.leeftijd);
+
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + (this.naam != null ? this.naam.hashCode() : 0);
+        hash = 53 * hash + (this.voornaam != null ? this.voornaam.hashCode() : 0);
+        hash = 53 * hash + this.leeftijd;
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return this.getFullName() + " " + this.getLeeftijd() + " " + this.getId();
     }
 }

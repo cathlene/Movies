@@ -69,20 +69,7 @@ public class ActorRepositoryStub implements ActorRepository {
         return new ArrayList<Actor>(actors.values());
     }
 
-    public void saveOrUpdate(Actor actor) {
-        if (actor==null ){
-            throw new DbException("Geen geldige actor");
-        }
-
-        if(!actors.containsKey("add"+actor.getId())){
-            System.out.print(actor.getId());
-            this.addActor(actor);
-        }
-        else{
-            System.out.print("update:"+actor.getId());
-            updateActor(actor);
-        }
-    }
+   
 
     public Actor getActor(String naam, String voornaam) {
 

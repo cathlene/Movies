@@ -20,7 +20,6 @@ public class MovieRepositoryStub implements MovieRepository{
 
         this.addMovie( new Movie("PublicEnemies", 118,new Actor("Johnny", "Depp", 55)));
         this.addMovie(new Movie("Rango", 96, new Actor("Johnny", "Depp",55)));
-
     }
      public static int getID(){
         counter++;
@@ -72,11 +71,13 @@ public class MovieRepositoryStub implements MovieRepository{
         return moviesWithDuration;
     }
     public List<Movie> getMoviesWithSpecificActor(Actor actor){
+                
         List<Movie> moviesWithActor =getAllMovies();
         ListIterator<Movie> itr=moviesWithActor.listIterator();
         while(itr.hasNext()){
-        if((!actor.equals(itr.next().getHoofdrolSpeler()))){
-               
+            Actor actor2=itr.next().getHoofdrolSpeler();
+        
+        if(!actor.equals(actor2)){
             itr.remove();
             }
         }
