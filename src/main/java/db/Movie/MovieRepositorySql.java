@@ -58,8 +58,10 @@ public class MovieRepositorySql implements MovieRepository {
     public void updateMovie(Movie movie) {
 
         try {
-            this.removeMovie(movie);
-            this.addMovie(movie);
+            manager.getTransaction().begin();
+            manager.merge(movie);
+            manager.flush(); 
+            manager.getTransaction().commit();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }

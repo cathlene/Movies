@@ -2,8 +2,14 @@ package domain;
 
 import domain.Actor;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -13,7 +19,11 @@ public class Movie {
 
     private String title;
     private int duur;
+    @ManyToOne
     private Actor hoofdrolSpeler;
+    
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
     
     @Id
     @GeneratedValue
@@ -40,6 +50,13 @@ public long getId() {
         return id;
     }
 
+ public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
     public void setId(long id) {
         this.id = id;
     }

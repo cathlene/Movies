@@ -32,24 +32,36 @@ public class ActorRepositorySql implements ActorRepository {
     }
 
     public void addActor(Actor actor) {
+        try {
             manager.getTransaction().begin();
             manager.persist(actor);
             manager.flush(); 
             manager.getTransaction().commit();
+             } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
     }
 
     public void removeActor(Actor actor) {
-            manager.getTransaction().begin();
+        
+         try {
+             manager.getTransaction().begin();
             manager.remove(actor);
             manager.flush(); 
             manager.getTransaction().commit();
+             } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
+          
     }
 
     public void updateActor(Actor actor) {
 
         try {
-            this.removeActor(actor);
-            this.addActor(actor);
+            manager.getTransaction().begin();
+            manager.merge(actor);
+            manager.flush(); 
+            manager.getTransaction().commit();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
