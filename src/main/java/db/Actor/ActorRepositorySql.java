@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -31,7 +32,16 @@ public class ActorRepositorySql implements ActorRepository {
         }
     }
 
+    public boolean alreadyExists(Actor actor){
+       
+    return (this.getActor(actor.getId())!=null);
+     
+    }
+    
     public void addActor(Actor actor) {
+        if(alreadyExists(actor)){
+        throw new DbException("Actor already exists");
+        }
         try {
             manager.getTransaction().begin();
             manager.persist(actor);
@@ -72,7 +82,8 @@ public class ActorRepositorySql implements ActorRepository {
     public int getAantalActors() {
          try {
             Query query= manager.createQuery("select count(m) from Actor m");
-            return (Integer) query.getSingleResult();
+            Long aantal=(Long)query.getSingleResult() ; // Als je er direct Integer van probeert te maken geeft deze een error: cannot convert Long into Integer
+            return aantal.intValue();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
@@ -92,19 +103,19 @@ public class ActorRepositorySql implements ActorRepository {
 
     public Actor getActor(long id) {
  try {
-            Query query= manager.createQuery("select m from Actor m where m.name like :actorId").setParameter("actorId", id);
-             Actor actor = (Actor) query.getSingleResult();
-            return actor;
+             return manager.find(Actor.class, id);
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
     }
 
     public Actor getActor(String naam, String voornaam) {
-         try {
-            Query query= manager.createQuery("select m from Actor m where m.name= :naam AND m.voornaam = :voornaam");
-             Actor actor = (Actor) query.getSingleResult();
-            return actor;
+         try {        
+            TypedQuery<Actor> query= manager.createQuery("select m from Actor m where m.naam= :naam AND m.voornaam = :voornaam",Actor.class);
+            query.setParameter("voornaam", voornaam);
+            query.setParameter("naam", naam);
+             return query.getSingleResult();
+            
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }

@@ -41,6 +41,13 @@ public class Facade {
     public void removeMovie(Movie movie){
         movieService.removeMovie(movie);
     }
+    
+    public int getAantalActors(){
+    return actorService.getAantalActors();
+    }
+    public int getAantalMovies(){
+    return movieService.getAantalMovies();
+    }
     public MovieService getMovieRepository(){
         return this.movieService;
     }
