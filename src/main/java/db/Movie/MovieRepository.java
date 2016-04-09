@@ -15,10 +15,13 @@ public interface MovieRepository {
     void updateMovie(Movie movie);
     Movie getMovie(Movie movie);
     Movie getMovie(long id);
+    void clearData();
 
    List<Movie> getAllMovies();
    int getAantalMovies();
-    public List<Movie> getMoviesWithSpecificDuration(int duur);
-    public List<Movie> getMoviesWithSpecificActor(Actor actor);
+    List<Movie> getMoviesWithSpecificDuration(int duur);
+    List<Movie> getMoviesWithSpecificActor(Actor actor);
+
+    void deleteMoviesWithSpecificActor(Actor actor);
 }
 

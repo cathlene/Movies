@@ -9,6 +9,7 @@ import db.Actor.ActorRepository;
 import db.Actor.DbActorType;
 import domain.Actor;
 import db.Actor.ActorFactory;
+import db.Movie.MovieRepository;
 import domain.Movie;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class ActorService {
         actorRepository.removeActor(actor);
     }
    
+    public void clearData(){
+        actorRepository.clearData();
+    }
     public void updateActor(Actor actor){
         actorRepository.updateActor(actor);
     }

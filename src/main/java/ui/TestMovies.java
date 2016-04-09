@@ -17,7 +17,23 @@ import domain.Movie;
 public class TestMovies {
     public static void main(String[] args) {
         Facade facade= new Facade("sql");
-      //  Actor actor= new Actor("voor", "john", 45);
+        //facade.clearMovieData();
+       // facade.clearActorData();
+        //Actor actor= new Actor("voor", "john", 45);
+        //Actor  actor2= new Actor("jef","de",21);
+        //Movie  movie= new Movie("title",120,actor);
+        //Movie  movie2= new Movie("The",45,actor2);
+        //facade.addActor(actor);
+        //facade.addActor(actor2);
+        //facade.addMovie(movie);
+        //facade.addMovie(movie2);
+        //actor.addMovie(movie);
+        //actor2.addMovie(movie2);
+        
+        //facade.deleteMoviesWithSpeceficActor(actor);
+       
+
+      // Actor actor= new Actor("voor", "john", 45);
        // facade.addActor(actor);
        
        // Test getActorByName           System.out.println(facade.getActor("john", "voor").toString());
@@ -36,7 +52,7 @@ public class TestMovies {
         //       facade.updateActor(actor);
 
        //facade.updateMovie(movie);
-      //?????  System.out.println(facade.getMoviesWithSpecificDuration(100).size());
+      // Test getmovieswithduration System.out.println(facade.getMoviesWithSpecificDuration(100).size());
       // TEST  System.out.print(facade.getMoviesWithSpecificActor(actor).size());
      // Actor actor= new  Actor("tes", "tels", 10);
      // Movie movie=new Movie("lam", 112, actor);
@@ -44,7 +60,6 @@ public class TestMovies {
       //facade.addMovie(movie);
       //actor.addMovie(movie);
      
- 
         System.out.println(facade.getActors());
         
     }

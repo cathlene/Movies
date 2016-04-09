@@ -54,4 +54,13 @@ public class MovieService {
        public int getAantalMovies(){
     return movieRepository.getAantalMovies();
     }
+       public void clearData(){
+       movieRepository.clearData();
+       }
+
+    public void deleteMoviesWithSpecificActor(Actor actor) {
+        movieRepository.deleteMoviesWithSpecificActor(actor);
+    
+    
+    }
 }

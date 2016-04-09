@@ -3,8 +3,10 @@ package db.Movie;
 import db.DbException;
 import domain.Actor;
 import domain.Movie;
+import java.util.ArrayList;
 
 import java.util.List;
+import java.util.ListIterator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -53,6 +55,9 @@ public class MovieRepositorySql implements MovieRepository {
     }
 
     public void removeMovie(Movie movie) {
+        if(movie==null ||!alreadyExists(movie)){
+        throw new DbException("movie does not exixts");
+        }
          try {
             manager.getTransaction().begin();
             manager.remove(movie);
@@ -64,7 +69,9 @@ public class MovieRepositorySql implements MovieRepository {
     }
 
     public void updateMovie(Movie movie) {
-
+ if(movie==null ||!alreadyExists(movie)){
+        throw new DbException("movie does not exixts");
+        }
         try {
             manager.getTransaction().begin();
             manager.merge(movie);
@@ -76,7 +83,9 @@ public class MovieRepositorySql implements MovieRepository {
     }
 
     public Movie getMovie(Movie movie) {
-
+ if(movie==null ||!alreadyExists(movie)){
+        throw new DbException("movie does not exixts");
+        }
         try {
             
             return this.getMovie(movie.getId());
@@ -87,7 +96,7 @@ public class MovieRepositorySql implements MovieRepository {
     }
 
     public Movie getMovie(long id) {
-
+ 
         try {
             return manager.find(Movie.class, id);
         } catch (Exception e) {
@@ -98,7 +107,7 @@ public class MovieRepositorySql implements MovieRepository {
     public List<Movie> getAllMovies() {
 
         try {
-            Query query= manager.createQuery("select m from Movies m");
+            Query query= manager.createQuery("select m from Movie m");
             return query.getResultList();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
@@ -118,7 +127,7 @@ public class MovieRepositorySql implements MovieRepository {
 
     public List<Movie> getMoviesWithSpecificDuration(int duur) {
         try {
-            Query query= manager.createQuery("select m from Movie m where m.duur <= duration").setParameter("duration", duur);
+            Query query= manager.createQuery("select m from Movie m where m.duur <= :duration").setParameter("duration", duur);
             return query.getResultList();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
@@ -126,16 +135,48 @@ public class MovieRepositorySql implements MovieRepository {
     }
 
     public List<Movie> getMoviesWithSpecificActor(Actor actor) {
+         
           try {
+              
             String fullNaam=actor.getFullName();
             int leeftijd= actor.getLeeftijd();
               TypedQuery<Actor> query= manager.createQuery("select m from Actor m where m.fullName = :fullName AND m.leeftijd = :leeftijd",Actor.class);
               query.setParameter("fullName", fullNaam);
               query.setParameter("leeftijd", leeftijd);
-            return query.getSingleResult().getMovies();
+              Actor actor2= query.getSingleResult();
+             
+            return actor.getMovies();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
     }
 
+    public void clearData(){
+     try{
+         
+     List<Movie> movies= this.getAllMovies();
+     for(Movie m:movies){
+     this.removeMovie(m);
+     }
+     
+     }catch(Exception e){
+     throw new DbException(e.getMessage(),e);
+     }
+    }
+
+    public void deleteMoviesWithSpecificActor(Actor actor) {
+         try {
+             ListIterator<Movie> itr=this.getAllMovies().listIterator();
+        while(itr.hasNext()){
+            Movie movie=itr.next();
+            Actor actor2=movie.getHoofdrolSpeler();
+        if(actor.equals(actor2)){
+            this.removeMovie(movie);
+            actor.deleteMovie(movie);
+            }
+        }
+        } catch (Exception e) {
+            throw new DbException(e.getMessage(), e);
+        }
+    }
 }

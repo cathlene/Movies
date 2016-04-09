@@ -89,5 +89,13 @@ public long getId() {
         this.hoofdrolSpeler = hoofdrolSpeler;
     }
 
-
+ @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Movie) {
+            Movie movie = (Movie) obj;
+            return (movie.title.equals(this.title)&& movie.duur==this.duur && movie.hoofdrolSpeler.equals(this.hoofdrolSpeler));
+        } else {
+            return false;
+        }
+    }
 }

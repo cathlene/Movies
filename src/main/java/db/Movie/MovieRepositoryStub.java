@@ -90,4 +90,23 @@ public class MovieRepositoryStub implements MovieRepository{
     public int getAantalMovies(){
         return movies.size();
     }
+
+    public void clearData() {
+     movies=  movies= new TreeMap<Long, Movie>();
+
+    }
+
+    public void deleteMoviesWithSpecificActor(Actor actor) {
+    List<Movie> moviesWithActor =getAllMovies();
+        ListIterator<Movie> itr=moviesWithActor.listIterator();
+        while(itr.hasNext()){
+            Movie movie=itr.next();
+            Actor actor2=movie.getHoofdrolSpeler();
+        
+        if(actor.equals(actor2)){
+            itr.remove();
+            actor.deleteMovie(movie);
+            }
+        }
+    }
 }

@@ -41,7 +41,12 @@ public class Facade {
     public void removeMovie(Movie movie){
         movieService.removeMovie(movie);
     }
-    
+    public void clearMovieData(){
+    movieService.clearData();
+    }
+    public void clearActorData(){
+    actorService.clearData();
+    }
     public int getAantalActors(){
     return actorService.getAantalActors();
     }
@@ -70,6 +75,9 @@ public class Facade {
 
     public List<Movie> getMoviesWithSpecificActor(Actor actor){
         return movieService.getMoviesWithSpecificActor(actor);
+    }
+    public void deleteMoviesWithSpeceficActor(Actor actor){
+        movieService.deleteMoviesWithSpecificActor(actor);
     }
     public List<Movie> getMoviesWithSpecificDuration(int duur){
         return movieService.getMoviesWithSpecificDuration(duur);

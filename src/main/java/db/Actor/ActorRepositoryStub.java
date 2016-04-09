@@ -89,5 +89,9 @@ public class ActorRepositoryStub implements ActorRepository {
     public void removeActor(long id) {
         actors.remove(id);
     }
+
+    public void clearData() {
+               actors= new HashMap<Long, Actor>();
+    }
    
 }

@@ -53,10 +53,16 @@ public class Actor {
 
     public void addMovie(Movie movie) {
         if (movie == null) {
-            throw new DomainException("geen gedlig boek");
+            throw new DomainException("geen geldige film");
         }
         movies.add(movie);
         movie.setHoofdrolSpeler(this);
+    }
+    public void deleteMovie(Movie movie) {
+        if (movie == null) {
+            throw new DomainException("geen geldige film");
+        }
+        movies.remove(movie);
     }
 
     public String getNaam() {
@@ -110,7 +116,7 @@ public class Actor {
         this.id = id;
     }
 
-    
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof Actor) {
             Actor actor = (Actor) obj;

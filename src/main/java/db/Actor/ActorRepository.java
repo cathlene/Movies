@@ -17,5 +17,6 @@ public interface ActorRepository {
     int getAantalActors();
     List<Actor> getAllActors(); 
 
-     void removeActor(long id);
+    void clearData();
+    void removeActor(long id);
 }
