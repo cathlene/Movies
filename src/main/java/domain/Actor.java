@@ -55,8 +55,14 @@ public class Actor {
         if (movie == null) {
             throw new DomainException("geen geldige film");
         }
-        movies.add(movie);
+        if(this.getMovies()==null){
+        movies=new ArrayList<Movie>();
+        }
+        this.setFullName(voornaam, naam);
         movie.setHoofdrolSpeler(this);
+
+        movies.add(movie);
+      //  movie.setHoofdrolSpeler(this);
     }
     public void deleteMovie(Movie movie) {
         if (movie == null) {
