@@ -59,6 +59,7 @@ public class TestMovies {
      // facade.addActor(actor);
       //facade.addMovie(movie);
       //actor.addMovie(movie);
+      // zeer belangrijk eerst movies verwijderen voor je de acteur verwijderd die in die film meespeelt ->  deleteMoviesWIthActor
      
         System.out.println(facade.getActors());
         

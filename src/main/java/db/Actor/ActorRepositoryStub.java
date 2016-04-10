@@ -3,6 +3,7 @@ package db.Actor;
 import domain.Actor;
 import domain.DomainException;
 import db.*;
+import domain.Movie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,14 @@ public class ActorRepositoryStub implements ActorRepository {
     public ActorRepositoryStub(){
 
         actors= new HashMap<Long, Actor>();
-        this.addActor(new Actor("Johnny", "Depp", 55));
+        Actor actor= new Actor("Johnny", "Depp", 55);
+        this.addActor(actor);
+         Movie movie=new Movie("PublicEnemies", 118, new Actor("Johnny", "Depp", 55));
+       Movie movie2=(new Movie("Rango", 96, new Actor("Johnny", "Depp", 55)));
+        actor.addMovie(movie);
+       actor.addMovie(movie2);
+
+        
     }
     
      public static int getID(){
@@ -48,9 +56,24 @@ public class ActorRepositoryStub implements ActorRepository {
         if(actor==null){
             throw new DbException("Geen geldige actor");
         }
-        this.actors.remove(actor.getId());
-        actors.put(actor.getId(),actor);
-        
+       // actors.put(actor.getId(),actor);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!voornaam "+ actor.getVoornaam());
+       actor.setFullName(actor.getVoornaam(), actor.getNaam());
+       Actor actorToUpdate= actors.get(actor.getId());
+               this.actors.remove(actor.getId());
+        actorToUpdate.setFullName(actor.getVoornaam(), actor.getNaam());
+        actorToUpdate.setLeeftijd(actor.getLeeftijd());
+        actorToUpdate.setNaam(actor.getNaam());
+        actorToUpdate.setVoornaam(actor.getVoornaam());
+        actors.put(actor.getId(), actorToUpdate);
+        System.out.println("nieuwe gegevens  .........."+ actorToUpdate.getNaam()+" "+actorToUpdate.getVoornaam()+" "+actorToUpdate.getFullName());
+        this.updateMoviesWithActor(actorToUpdate);
+    }
+     public void updateMoviesWithActor(Actor actor){
+     List<Movie>movies= actor.getMovies();
+     for(Movie m:movies){
+     m.setHoofdrolSpeler(actor);
+     }
     }
 
 

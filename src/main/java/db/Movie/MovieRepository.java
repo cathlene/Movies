@@ -23,5 +23,7 @@ public interface MovieRepository {
     List<Movie> getMoviesWithSpecificActor(Actor actor);
 
     void deleteMoviesWithSpecificActor(Actor actor);
+
+    public Movie getMovie(String movie);
 }
 

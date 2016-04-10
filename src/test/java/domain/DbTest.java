@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 /**
  * Created by cathlene on 14/02/2016.
  */
-public class test {
+public class DbTest {
 
     private Actor actor, actor2;
     private Movie movie, movie2;
@@ -49,62 +49,75 @@ public class test {
 
     @Test
     public void testRemoveActor_met_correcte_voornaam_naam_id_leeftijd_verwijdert_actor() {
-        assertEquals(2, facade.getActorRepository().getAantalActors());
+        assertEquals(2, facade.getAantalActors());
         facade.deleteMoviesWithSpeceficActor(actor);
         facade.removeActor(actor);
-        assertEquals(1, facade.getActorRepository().getAantalActors());
+        assertEquals(1, facade.getAantalActors());
 
     }
 
     @Test
-    public void testUpdateActor_met_correcte_voornaam_naam_id_leeftijd_update_actor() {
+    public void testUpdateActor_met_correcte_voornaam_naam_id_leeftijd_update_actor_en_update_film_met_hoofdrolspeler() {
+        Movie movieNew= new Movie("Mobie",45,actor);
+        facade.addMovie(movieNew);
+        actor.addMovie(movieNew);
+        assertEquals(actor.getLeeftijd(), facade.getActor("Depp", "Johnny").getLeeftijd());
+        Movie movie= facade.getMoviesWithSpecificActor(actor).get(0);
+        Movie movie2= facade.getMoviesWithSpecificActor(actor).get(1);
 
-        assertEquals(actor.getLeeftijd(), facade.getActorRepository().getActor("Depp", "Johnny").getLeeftijd());
-        facade.getActorRepository().updateActor(new Actor("Johnny", "Depp", 56, actor.getId()));
+        Actor nieuwActor=new Actor("Johnny", "Depp", 56, actor.getId());
+        facade.updateActor(nieuwActor);
+        assertEquals(56, facade.getActor("Depp", "Johnny").getLeeftijd());
+        assertEquals(56, movie.getHoofdrolSpeler().getLeeftijd());
+        assertEquals(56, movie2.getHoofdrolSpeler().getLeeftijd());
 
-        assertEquals(56, facade.getActorRepository().getActor("Depp", "Johnny").getLeeftijd());
+        
     }
 
     @Test
-    public void testUpdateMovie_met_correcte_titel_duur_hoofdrolspeler_update_movie() {
-        assertEquals(movie2.getDuur(), facade.getMovieRepository().getMovie(movie2).getDuur());
-        facade.getMovieRepository().updateMovie(new Movie("Into the wild", 110, actor2, movie2.getId()));
-        assertEquals(110, facade.getMovieRepository().getMovie(movie2).getDuur());
+    public void testUpdateMovie_met_correcte_titel_duur_hoofdrolspeler_update_movie_en_update_bijhorende_film_van_bijhorende_actor() {
+        assertEquals(movie2.getDuur(), facade.getMovie(movie2).getDuur());
+        facade.updateMovie(new Movie("Into the wild", 110, actor2, movie2.getId()));
+        assertEquals(110, facade.getMovie(movie2).getDuur());
+       assertEquals(110, facade.getMoviesWithSpecificActor(actor2).get(0).getDuur());
+
     }
+  
+
 
     @Test
     public void testRemoveMovie_met_correcte_titel_duur_hoofdrolspeler_verwijdert_movie() {
-        assertEquals(2, facade.getMovieRepository().getAantalMovies());
+        assertEquals(2, facade.getAantalMovies());
         facade.removeMovie(movie);
-        assertEquals(1, facade.getMovieRepository().getAantalMovies());
+        assertEquals(1, facade.getAantalMovies());
 
     }
 
     @Test(expected = DbException.class)
     public void testRemoveMovie_geeft_DbExcecption_wanneer_movie_met_bepaalde_titel_niet_bestaat() {
         facade.removeMovie(new Movie("Ranbo", 96, new Actor("Johnny", "Depp", 55, 20)));
-        assertEquals(1, facade.getMovieRepository().getAantalMovies());
+        assertEquals(1, facade.getAantalMovies());
 
     }
 
     @Test(expected = DbException.class)
     public void testRemoveMovie_met_null_waarden_geeft_DbExcecption() {
         facade.removeMovie(null);
-        assertEquals(1, facade.getMovieRepository().getAantalMovies());
+        assertEquals(1, facade.getAantalMovies());
 
     }
 
     @Test(expected = DbException.class)
     public void testRemoveActor_geeft_DbExcecption_wanneer_de_acteur_met_id_niet_bestaat() {
         facade.removeActor(new Actor("Johnny", "Depp", 55, 13));
-        assertEquals(1, facade.getMovieRepository().getAantalMovies());
+        assertEquals(1, facade.getAantalMovies());
 
     }
 
     @Test(expected = DbException.class)
     public void testRemoveActor_met_null_waarden_geeft_DbExcecption() {
         facade.removeActor(null);
-        assertEquals(1, facade.getMovieRepository().getAantalMovies());
+        assertEquals(1, facade.getAantalMovies());
 
     }
 

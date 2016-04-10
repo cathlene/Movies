@@ -44,6 +44,9 @@ public class Facade {
     public void clearMovieData(){
     movieService.clearData();
     }
+    public Movie getMovie(String movie){
+    return movieService.getMovie(movie);
+    }
     public void clearActorData(){
     actorService.clearData();
     }

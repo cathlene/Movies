@@ -15,17 +15,27 @@ public class MovieBuilder {
     private String title;
     private int duur;
     private String actorVoornaam, actorAchternaam;
+    private long id;
+
+   
     
     public MovieBuilder() {
     }
- public MovieBuilder(String title, int duur, String voornaam, String achternaam) {
+ public MovieBuilder(String title, int duur, String voornaam, String achternaam,long id) {
      this.setActorAchternaam(achternaam);
      this.setActorVoornaam(voornaam);
      this.setDuur(duur);
      this.setTitle(title);
+     this.setId(id);
     }
 
-    
+     public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     public String getTitle() {
         return title;
     }
@@ -73,6 +83,6 @@ public class MovieBuilder {
         throw new DomainException("not valid name");
         }
         Actor hoofdrolspeler = facade.getActor(actorAchternaam, actorVoornaam);
-        return new Movie(title, duur, hoofdrolspeler);
+        return new Movie(title, duur, hoofdrolspeler,id);
     }
 }

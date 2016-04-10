@@ -79,11 +79,18 @@ public class ActorRepositorySql implements ActorRepository {
             manager.merge(actor);
             manager.flush();
             manager.getTransaction().commit();
+            this.updateMoviesWithActor(actor);
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
     }
 
+    public void updateMoviesWithActor(Actor actor){
+     List<Movie>movies= actor.getMovies();
+     for(Movie m:movies){
+     m.setHoofdrolSpeler(actor);
+     }
+    }
     public int getAantalActors() {
         try {
             Query query = manager.createQuery("select count(m) from Actor m");

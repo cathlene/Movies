@@ -63,4 +63,8 @@ public class MovieService {
     
     
     }
+
+    public Movie getMovie(String movie) {
+        return movieRepository.getMovie(movie);
+    }
 }
