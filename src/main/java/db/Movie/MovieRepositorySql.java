@@ -25,6 +25,10 @@ public class MovieRepositorySql implements MovieRepository {
 
         factory = Persistence.createEntityManagerFactory(name);
         manager = factory.createEntityManager();
+        Actor actor=new Actor("John", "Dep", 55);
+        Actor actor2=new Actor("Wil", "Be", 43);
+        this.addMovie(new Movie("Public", 118, actor));
+        this.addMovie(new Movie("Into", 120, actor2));
     }
 
     public void closeConnection() {

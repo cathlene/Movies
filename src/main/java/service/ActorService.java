@@ -61,4 +61,8 @@ public class ActorService {
     public void removeActor(long id) {
          actorRepository.removeActor(id);
     }
+
+    public void closeConnection() {
+        actorRepository.closeConnection();
+    }
 }

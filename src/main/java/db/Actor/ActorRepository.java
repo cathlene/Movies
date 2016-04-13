@@ -19,4 +19,6 @@ public interface ActorRepository {
 
     void clearData();
     void removeActor(long id);
+
+    public void closeConnection();
 }

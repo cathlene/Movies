@@ -56,8 +56,6 @@ public class ActorRepositoryStub implements ActorRepository {
         if(actor==null){
             throw new DbException("Geen geldige actor");
         }
-       // actors.put(actor.getId(),actor);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!voornaam "+ actor.getVoornaam());
        actor.setFullName(actor.getVoornaam(), actor.getNaam());
        Actor actorToUpdate= actors.get(actor.getId());
                this.actors.remove(actor.getId());
@@ -66,7 +64,6 @@ public class ActorRepositoryStub implements ActorRepository {
         actorToUpdate.setNaam(actor.getNaam());
         actorToUpdate.setVoornaam(actor.getVoornaam());
         actors.put(actor.getId(), actorToUpdate);
-        System.out.println("nieuwe gegevens  .........."+ actorToUpdate.getNaam()+" "+actorToUpdate.getVoornaam()+" "+actorToUpdate.getFullName());
         this.updateMoviesWithActor(actorToUpdate);
     }
      public void updateMoviesWithActor(Actor actor){
@@ -115,6 +112,10 @@ public class ActorRepositoryStub implements ActorRepository {
 
     public void clearData() {
                actors= new HashMap<Long, Actor>();
+    }
+
+    public void closeConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }

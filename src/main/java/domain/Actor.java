@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -35,11 +36,10 @@ public class Actor {
     }
 
     public Actor(String voornaam, String naam, int leeftijd, long id) {
-        this.setNaam(naam);
-        this.setVoornaam(voornaam);
-        this.setLeeftijd(leeftijd);
+        this(voornaam, naam, leeftijd);
+        // is zelfde oke :p  Aaah maar zijn die movies ECHT null, of is da gwn nog ni van db geladen? ik weet ni die worden plots echt null, doe eens getMovies() daar fzo ? Kan zijn dat die dat laad ondemand en waar moet  ik da dan deon?
         this.setId(id);
-        this.setFullName(voornaam, naam);
+        this.setFullName(voornaam, naam); // even terzijde, waarom geen constructor overloading? omda ik ni wist hoe da zat met die id :p omda die wordt gegenereerd
         movies = new ArrayList<Movie>();
 
     }
@@ -69,6 +69,7 @@ public class Actor {
             throw new DomainException("geen geldige film");
         }
         movies.remove(movie);
+        movie.setHoofdrolSpeler(null);
     }
      public void updateMovie(Movie movie) {
         if (movie == null) {

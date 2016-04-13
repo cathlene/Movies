@@ -50,6 +50,11 @@ public class Facade {
     public void clearActorData(){
     actorService.clearData();
     }
+    public void closeConnection(){
+    movieService.closeConnection();
+    actorService.closeConnection();
+    }
+     
     public int getAantalActors(){
     return actorService.getAantalActors();
     }

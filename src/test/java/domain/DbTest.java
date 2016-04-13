@@ -26,7 +26,9 @@ public class DbTest {
     public void setUp() {
         facade = new Facade("sql");
         facade.clearMovieData();
-        facade.clearActorData();
+       facade.clearActorData();
+        
+
         actor = new Actor("Johnny", "Depp", 55);
         actor2 = new Actor("Willie", "Bend", 43);
 
@@ -43,7 +45,7 @@ public class DbTest {
 
     @Test
     public void testGetActor_met_correcte_naam_voornaam() {
-        assertEquals(actor2.getId(), facade.getActor(actor2.getNaam(), actor2.getVoornaam()).getId());
+       assertEquals(actor2.getId(), facade.getActor(actor2.getNaam(), actor2.getVoornaam()).getId());
 
     }
 
@@ -179,5 +181,8 @@ public class DbTest {
         List<Movie> movies = facade.getMovies();
         assertEquals(2, movies.size());
     }
+    
+   
+    
 
 }

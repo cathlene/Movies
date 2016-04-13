@@ -67,4 +67,8 @@ public class MovieService {
     public Movie getMovie(String movie) {
         return movieRepository.getMovie(movie);
     }
+
+    public void closeConnection() {
+        movieRepository.closeConnection();
+    }
 }

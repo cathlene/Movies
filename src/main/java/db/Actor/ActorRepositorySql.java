@@ -21,6 +21,14 @@ public class ActorRepositorySql implements ActorRepository {
     public ActorRepositorySql(String name) {
         factory = Persistence.createEntityManagerFactory(name);
         manager = factory.createEntityManager();
+      Actor actor=new Actor("John", "De", 55);
+        Actor actor2=new Actor("Wil", "Be", 43);
+        this.addActor(actor);
+        this.addActor(actor2);
+       Movie movie = new Movie("Public", 118, actor);
+        Movie movie2 = new Movie("Into", 120, actor2);
+        
+        
     }
 
     public void closeConnection() {
@@ -68,18 +76,23 @@ public class ActorRepositorySql implements ActorRepository {
     }
 
     public void updateActor(Actor actor) {
-// wanneer je actor update, geef dan wel oorspronnkelijke id mee, met dan andere naam of leeftijd 
 
         if (actor==null ||!alreadyExists(actor)) {
             throw new DbException("actor does not exixts");
         }
         try {
+            
+            Actor actor2=null; 
+            actor2= this.getActor(actor.getId()); 
+            List<Movie>movies = actor2.getMovies();
+            System.out.println("aaantalNAUPDTAE!!!!!!!!!!!!!"); 
 
             manager.getTransaction().begin();
             manager.merge(actor);
             manager.flush();
             manager.getTransaction().commit();
-            this.updateMoviesWithActor(actor);
+
+            this.updateMoviesWithActor(this.getActor(actor.getId()));
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
@@ -129,8 +142,7 @@ public class ActorRepositorySql implements ActorRepository {
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
-    }
-
+    }// wat was jij aan het probere? :)ik moest da toch kopiere van jou :p aah juist :D Lukt? kwas nog bezig :p K :D Probeer dat maar eerst dan ;) 
     public void removeActor(long id) {
         Actor actor = this.getActor(id);
         this.removeActor(actor);
