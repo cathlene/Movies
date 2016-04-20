@@ -31,15 +31,12 @@ public class Actor {
         this.setNaam(naam);
         this.setVoornaam(voornaam);
         this.setLeeftijd(leeftijd);
-        this.setFullName(voornaam, naam);
         movies = new ArrayList<Movie>();
     }
 
     public Actor(String voornaam, String naam, int leeftijd, long id) {
         this(voornaam, naam, leeftijd);
-        // is zelfde oke :p  Aaah maar zijn die movies ECHT null, of is da gwn nog ni van db geladen? ik weet ni die worden plots echt null, doe eens getMovies() daar fzo ? Kan zijn dat die dat laad ondemand en waar moet  ik da dan deon?
         this.setId(id);
-        this.setFullName(voornaam, naam); // even terzijde, waarom geen constructor overloading? omda ik ni wist hoe da zat met die id :p omda die wordt gegenereerd
         movies = new ArrayList<Movie>();
 
     }
@@ -55,31 +52,20 @@ public class Actor {
         if (movie == null) {
             throw new DomainException("geen geldige film");
         }
-        if(this.getMovies()==null){
-        movies=new ArrayList<Movie>();
+        if (this.getMovies() == null) {
+            movies = new ArrayList<Movie>();
         }
-        this.setFullName(voornaam, naam);
-        movie.setHoofdrolSpeler(this);
 
         movies.add(movie);
-      //  movie.setHoofdrolSpeler(this);
+        movie.setHoofdrolSpeler(this);
     }
+
     public void deleteMovie(Movie movie) {
         if (movie == null) {
             throw new DomainException("geen geldige film");
         }
         movies.remove(movie);
         movie.setHoofdrolSpeler(null);
-    }
-     public void updateMovie(Movie movie) {
-        if (movie == null) {
-            throw new DomainException("geen geldige film");
-        }
-       for(int i=0;i<movies.size();i++){
-       if(movies.get(i).getId()==movie.getId()){
-           movies.set(i, movie);
-       }
-       }
     }
 
     public String getNaam() {
@@ -120,12 +106,8 @@ public class Actor {
         return id;
     }
 
-    public void setFullName(String voornaam, String naam) {
-        this.fullName = this.getVoornaam() + " " + this.getNaam();
-    }
-
     public String getFullName() {
-        return fullName;
+        return this.getVoornaam() + " " + this.getNaam();
     }
 
     public void setId(long id) {

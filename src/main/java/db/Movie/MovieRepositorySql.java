@@ -25,10 +25,10 @@ public class MovieRepositorySql implements MovieRepository {
 
         factory = Persistence.createEntityManagerFactory(name);
         manager = factory.createEntityManager();
-        Actor actor=new Actor("John", "Dep", 55);
-        Actor actor2=new Actor("Wil", "Be", 43);
+        /*     Actor actor=new Actor("John", "Dep", 55);
+        Actor actor2=new Actor("Wil", "Be", 43); 
         this.addMovie(new Movie("Public", 118, actor));
-        this.addMovie(new Movie("Into", 120, actor2));
+        this.addMovie(new Movie("Into", 120, actor2));*/
     }
 
     public void closeConnection() {
@@ -52,7 +52,7 @@ public class MovieRepositorySql implements MovieRepository {
         try {
             manager.getTransaction().begin();
             manager.persist(movie);
-            manager.flush(); // wordt onmiddelijk op db gezet en niet enkel in geheugen
+            manager.flush();
             manager.getTransaction().commit();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
@@ -64,10 +64,12 @@ public class MovieRepositorySql implements MovieRepository {
             throw new DbException("movie does not exixts");
         }
         try {
+
             manager.getTransaction().begin();
             manager.remove(movie);
             manager.flush(); // wordt onmiddelijk op db gezet en niet enkel in geheugen
             manager.getTransaction().commit();
+
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
@@ -82,15 +84,12 @@ public class MovieRepositorySql implements MovieRepository {
             manager.merge(movie);
             manager.flush();
             manager.getTransaction().commit();
-            this.updateActorWithMovies(movie);
+
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
     }
 
-    public void updateActorWithMovies(Movie movie){
-    movie.getHoofdrolSpeler().updateMovie(movie);
-    }
     public Movie getMovie(Movie movie) {
         if (movie == null || !alreadyExists(movie)) {
             throw new DbException("movie does not exixts");
@@ -152,7 +151,7 @@ public class MovieRepositorySql implements MovieRepository {
             TypedQuery<Actor> query = manager.createQuery("select m from Actor m where m.fullName = :fullName AND m.leeftijd = :leeftijd", Actor.class);
             query.setParameter("fullName", fullNaam);
             query.setParameter("leeftijd", leeftijd);
-            Actor actor2 = query.getSingleResult();
+            // Actor actor2 = query.getSingleResult();
 
             return actor.getMovies();
         } catch (Exception e) {
@@ -162,15 +161,18 @@ public class MovieRepositorySql implements MovieRepository {
 
     public void clearData() {
         try {
-
             List<Movie> movies = this.getAllMovies();
+
             for (Movie m : movies) {
                 this.removeMovie(m);
             }
 
         } catch (Exception e) {
+
             throw new DbException(e.getMessage(), e);
+
         }
+
     }
 
     public void deleteMoviesWithSpecificActor(Actor actor) {
@@ -189,7 +191,4 @@ public class MovieRepositorySql implements MovieRepository {
         }
     }
 
-    public Movie getMovie(String movie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

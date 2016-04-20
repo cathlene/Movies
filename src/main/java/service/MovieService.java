@@ -40,6 +40,7 @@ public class MovieService {
         return movieRepository.getMovie(id);
     }
        public void removeMovie(Movie movie){
+          
         movieRepository.removeMovie(movie);
     }
     public MovieRepository getMovieRepository(){
@@ -64,10 +65,7 @@ public class MovieService {
     
     }
 
-    public Movie getMovie(String movie) {
-        return movieRepository.getMovie(movie);
-    }
-
+   
     public void closeConnection() {
         movieRepository.closeConnection();
     }

@@ -24,7 +24,6 @@ public interface MovieRepository {
 
     void deleteMoviesWithSpecificActor(Actor actor);
 
-    public Movie getMovie(String movie);
      public void closeConnection();
 }
 

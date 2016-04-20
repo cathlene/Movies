@@ -21,14 +21,13 @@ public class ActorRepositorySql implements ActorRepository {
     public ActorRepositorySql(String name) {
         factory = Persistence.createEntityManagerFactory(name);
         manager = factory.createEntityManager();
-      Actor actor=new Actor("John", "De", 55);
+        /*Actor actor=new Actor("John", "De", 55);
         Actor actor2=new Actor("Wil", "Be", 43);
         this.addActor(actor);
         this.addActor(actor2);
        Movie movie = new Movie("Public", 118, actor);
-        Movie movie2 = new Movie("Into", 120, actor2);
-        
-        
+        Movie movie2 = new Movie("Into", 120, actor2); */
+
     }
 
     public void closeConnection() {
@@ -47,7 +46,7 @@ public class ActorRepositorySql implements ActorRepository {
     }
 
     public void addActor(Actor actor) {
-        if (actor==null ||alreadyExists(actor)) {
+        if (actor == null || alreadyExists(actor)) {
             throw new DbException("Actor already exists");
         }
         try {
@@ -61,7 +60,7 @@ public class ActorRepositorySql implements ActorRepository {
     }
 
     public void removeActor(Actor actor) {
-        if (actor==null ||!alreadyExists(actor)) {
+        if (actor == null || !alreadyExists(actor)) {
             throw new DbException("actor does not exixts");
         }
         try {
@@ -76,34 +75,21 @@ public class ActorRepositorySql implements ActorRepository {
     }
 
     public void updateActor(Actor actor) {
-
-        if (actor==null ||!alreadyExists(actor)) {
+        if (actor == null || !alreadyExists(actor)) {
             throw new DbException("actor does not exixts");
         }
         try {
-            
-            Actor actor2=null; 
-            actor2= this.getActor(actor.getId()); 
-            List<Movie>movies = actor2.getMovies();
-            System.out.println("aaantalNAUPDTAE!!!!!!!!!!!!!"); 
 
             manager.getTransaction().begin();
             manager.merge(actor);
             manager.flush();
             manager.getTransaction().commit();
 
-            this.updateMoviesWithActor(this.getActor(actor.getId()));
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
     }
 
-    public void updateMoviesWithActor(Actor actor){
-     List<Movie>movies= actor.getMovies();
-     for(Movie m:movies){
-     m.setHoofdrolSpeler(actor);
-     }
-    }
     public int getAantalActors() {
         try {
             Query query = manager.createQuery("select count(m) from Actor m");
@@ -142,7 +128,8 @@ public class ActorRepositorySql implements ActorRepository {
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
-    }// wat was jij aan het probere? :)ik moest da toch kopiere van jou :p aah juist :D Lukt? kwas nog bezig :p K :D Probeer dat maar eerst dan ;) 
+    }
+
     public void removeActor(long id) {
         Actor actor = this.getActor(id);
         this.removeActor(actor);
@@ -150,7 +137,6 @@ public class ActorRepositorySql implements ActorRepository {
 
     public void clearData() {
         try {
-            //int delete=  manager.createQuery("delete from Actor ").executeUpdate();
 
             List<Actor> actors = this.getAllActors();
             for (Actor actor : actors) {

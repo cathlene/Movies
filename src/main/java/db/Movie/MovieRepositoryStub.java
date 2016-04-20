@@ -49,7 +49,7 @@ public class MovieRepositoryStub implements MovieRepository {
             throw new DbException("Geen geldige movie");
         }
         movies.put(movie.getId(), movie);
-        this.updateActorWithMovies(movie);
+      //TODO  this.updateActorWithMovies(movie);
 
     }
 
@@ -106,9 +106,9 @@ public class MovieRepositoryStub implements MovieRepository {
 
     }
 
-    public void updateActorWithMovies(Movie movie) {
+   /* public void updateActorWithMovies(Movie movie) {
         movie.getHoofdrolSpeler().updateMovie(movie);
-    }
+    }*/
 
     public void deleteMoviesWithSpecificActor(Actor actor) {
         List<Movie> moviesWithActor = getAllMovies();

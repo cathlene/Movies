@@ -1,6 +1,7 @@
 package domain;
 
 import domain.Actor;
+import static javax.persistence.CascadeType.PERSIST;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -19,7 +21,7 @@ public class Movie {
 
     private String title;
     private int duur;
-    @ManyToOne
+    @ManyToOne @NotNull
     private Actor hoofdrolSpeler;
     
     @Enumerated(EnumType.STRING)
@@ -83,9 +85,9 @@ public long getId() {
     }
 
     public void setHoofdrolSpeler(Actor hoofdrolSpeler) {
-        if(hoofdrolSpeler==null){
+/*        if(hoofdrolSpeler==null){
             throw new DomainException("geen geldige hoofdrolspeler");
-        }
+        }*/
         this.hoofdrolSpeler = hoofdrolSpeler;
     }
 
