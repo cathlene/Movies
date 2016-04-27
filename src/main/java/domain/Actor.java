@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -16,15 +20,25 @@ import javax.persistence.OneToOne;
 @Entity
 public class Actor {
 
+   // @NotNull(message="invalid name")
     private String naam;
+    
+   // @NotNull(message="invalid firstname")
     private String voornaam;
+    
+   // @Min(0)
     private int leeftijd;
-    @OneToMany(mappedBy = "hoofdrolSpeler")
+    
+      // @Valid
+    //@NotNull
+   @OneToMany(mappedBy = "hoofdrolSpeler")
     private List<Movie> movies;
 
     @Id
     @GeneratedValue
     private long id;
+    
+    
     private String fullName;
 
     public Actor(String voornaam, String naam, int leeftijd) {
@@ -67,7 +81,7 @@ public class Actor {
         movies.remove(movie);
         movie.setHoofdrolSpeler(null);
     }
-
+    //@NotNull
     public String getNaam() {
         return naam;
     }
@@ -79,6 +93,7 @@ public class Actor {
         this.naam = naam;
     }
 
+   // @NotNull
     public String getVoornaam() {
         return voornaam;
     }
@@ -106,6 +121,7 @@ public class Actor {
         return id;
     }
 
+   
     public String getFullName() {
         return this.getVoornaam() + " " + this.getNaam();
     }

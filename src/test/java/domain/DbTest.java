@@ -182,7 +182,7 @@ public class DbTest {
 
     }
 
-    @Test(expected = DbException.class)
+    @Test(expected = DomainException.class)
     public void testRemoveActor_met_null_waarden_geeft_DbExcecption() {
         facade.removeActor(null);
         assertEquals(1, facade.getAantalMovies());

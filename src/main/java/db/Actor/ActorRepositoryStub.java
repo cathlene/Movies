@@ -56,13 +56,9 @@ public class ActorRepositoryStub implements ActorRepository {
         if(actor==null){
             throw new DbException("Geen geldige actor");
         }
-       Actor actorToUpdate= actors.get(actor.getId());
-               this.actors.remove(actor.getId());
-        actorToUpdate.setLeeftijd(actor.getLeeftijd());
-        actorToUpdate.setNaam(actor.getNaam());
-        actorToUpdate.setVoornaam(actor.getVoornaam());
-        actors.put(actor.getId(), actorToUpdate);
-        this.updateMoviesWithActor(actorToUpdate);
+        actors.put(actor.getId(), actor);
+        this.updateMoviesWithActor(actor);
+      
     }
      public void updateMoviesWithActor(Actor actor){
      List<Movie>movies= actor.getMovies();

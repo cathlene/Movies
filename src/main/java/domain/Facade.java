@@ -20,6 +20,9 @@ public class Facade {
     }
 
     public void addMovie(Movie movie) {
+        if (movie == null) {
+            throw new DomainException("invalid movie");
+        }
         movieService.addMovie(movie);
         Actor actor = movie.getHoofdrolSpeler();
         actor.addMovie(movie);
@@ -31,19 +34,23 @@ public class Facade {
     }
 
     public void removeActor(Actor actor) {
+        if (actor== null) {
+            throw new DomainException("invalid actor");
+        }
         this.deleteMoviesWithSpeceficActor(actor);
         actorService.removeActor(actor);
     }
 
     public void removeActor(long id) {
+        if (this.getActor(id) == null) {
+            throw new DomainException("invalid actor");
+        }
         this.deleteMoviesWithSpeceficActor(this.getActor(id));
         actorService.removeActor(id);
     }
 
     public void updateMovie(Movie movie) {
         movieService.updateMovie(movie);
- //       Actor actor=movie.getHoofdrolSpeler();
-//        this.updateActor(actor);
     }
 
     public void updateActor(Actor actor) {

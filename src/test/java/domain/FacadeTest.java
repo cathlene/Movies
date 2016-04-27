@@ -85,7 +85,7 @@ public class FacadeTest {
         assertEquals(1,facade.getAantalMovies());
 
     }
-    @Test(expected=DbException.class)
+    @Test(expected=DomainException.class)
     public void testRemoveMovie_met_null_waarden_geeft_DbExcecption(){
         facade.removeMovie(null);
         assertEquals(1,facade.getAantalMovies());
@@ -97,7 +97,7 @@ public class FacadeTest {
         assertEquals(1,facade.getAantalMovies());
 
     }
-    @Test(expected=DbException.class)
+    @Test(expected=DomainException.class)
     public void testRemoveActor_met_null_waarden_geeft_DbExcecption(){
         facade.removeActor(null);
         assertEquals(1,facade.getAantalMovies());
