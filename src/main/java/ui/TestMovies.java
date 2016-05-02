@@ -15,7 +15,7 @@ import domain.Movie;
  * @author cathlene
  */
 public class TestMovies {
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
         Facade facade= new Facade("sql");
         //facade.clearMovieData();
        // facade.clearActorData();
@@ -61,8 +61,8 @@ public class TestMovies {
       //actor.addMovie(movie);
       // zeer belangrijk eerst movies verwijderen voor je de acteur verwijderd die in die film meespeelt ->  deleteMoviesWIthActor
      
-        System.out.println(facade.getActors());
+      //  System.out.println(facade.getActors());
         
-    }
+ //   }
     
 }

@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -20,17 +21,17 @@ import javax.validation.constraints.Size;
 @Entity
 public class Actor {
 
-   // @NotNull(message="invalid name")
+    @NotBlank(message="Please enter name")
     private String naam;
     
-   // @NotNull(message="invalid firstname")
+    @NotBlank(message="Please enter firstname")
     private String voornaam;
     
-   // @Min(0)
+   @Min(0)
     private int leeftijd;
     
-      // @Valid
-    //@NotNull
+   @Valid
+   @NotNull
    @OneToMany(mappedBy = "hoofdrolSpeler")
     private List<Movie> movies;
 
@@ -66,10 +67,6 @@ public class Actor {
         if (movie == null) {
             throw new DomainException("geen geldige film");
         }
-        if (this.getMovies() == null) {
-            movies = new ArrayList<Movie>();
-        }
-
         movies.add(movie);
         movie.setHoofdrolSpeler(this);
     }
@@ -81,27 +78,21 @@ public class Actor {
         movies.remove(movie);
         movie.setHoofdrolSpeler(null);
     }
-    //@NotNull
+   
     public String getNaam() {
         return naam;
     }
 
     public void setNaam(String naam) {
-        if (naam == null || naam.isEmpty()) {
-            throw new DomainException("geen geldige naam");
-        }
         this.naam = naam;
     }
 
-   // @NotNull
+    
     public String getVoornaam() {
         return voornaam;
     }
 
     public void setVoornaam(String voornaam) {
-        if (voornaam == null || voornaam.isEmpty()) {
-            throw new DomainException("geen geldige voornaam");
-        }
         this.voornaam = voornaam;
 
     }
@@ -111,9 +102,6 @@ public class Actor {
     }
 
     public void setLeeftijd(int leeftijd) {
-        if (leeftijd < 0) {
-            throw new DomainException("geen geldige leeftijd");
-        }
         this.leeftijd = leeftijd;
     }
 

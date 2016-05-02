@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -23,14 +24,14 @@ import javax.validation.constraints.Size;
 @Entity
 public class Movie {
 
-    //@NotNull(message = "invalid title")
+    @NotBlank(message="Please enter firstname")
     private String title;
 
-   // @Min(0)
+    @Min(0)
     private int duur;
 
-    //@NotNull(message = "invalid actor")
-    //@Valid
+    @NotNull(message = "invalid actor")
+    @Valid
     @ManyToOne
     private Actor hoofdrolSpeler;
 
@@ -77,9 +78,6 @@ public class Movie {
     }
 
     public void setTitle(String title) {
-        if (title == null || title.isEmpty()) {
-            throw new DomainException("geen geldige titel");
-        }
         this.title = title;
     }
 
@@ -89,9 +87,6 @@ public class Movie {
     }
 
     public void setDuur(int duur) {
-        if (duur < 0) {
-            throw new DomainException("geen geldige duur");
-        }
         this.duur = duur;
     }
 
@@ -101,9 +96,6 @@ public class Movie {
     }
 
     public void setHoofdrolSpeler(Actor hoofdrolSpeler) {
-        /*        if(hoofdrolSpeler==null){
-            throw new DomainException("geen geldige hoofdrolspeler");
-        }*/
         this.hoofdrolSpeler = hoofdrolSpeler;
     }
 

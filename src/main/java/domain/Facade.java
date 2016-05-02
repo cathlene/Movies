@@ -1,6 +1,10 @@
 package domain;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.springframework.web.client.RestTemplate;
+import restDomain.Result;
 import service.ActorService;
 import service.MovieService;
 
@@ -27,6 +31,7 @@ public class Facade {
         Actor actor = movie.getHoofdrolSpeler();
         actor.addMovie(movie);
         actorService.updateActor(actor);
+
     }
 
     public void addActor(Actor actor) {
@@ -34,7 +39,7 @@ public class Facade {
     }
 
     public void removeActor(Actor actor) {
-        if (actor== null) {
+        if (actor == null) {
             throw new DomainException("invalid actor");
         }
         this.deleteMoviesWithSpeceficActor(actor);
@@ -130,6 +135,15 @@ public class Facade {
 
     public List<Actor> getActors() {
         return actorService.getActors();
+    }
+
+    public Result rating(String title) {
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("t", title);
+        RestTemplate restTemplate = new RestTemplate();
+
+        Result response = restTemplate.getForObject("http://www.omdbapi.com/?t={t}&y=&plot=short&r=json", Result.class, parameters);
+        return response;
     }
 
 }
