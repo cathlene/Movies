@@ -17,6 +17,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -24,7 +25,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class Movie {
 
-    @NotBlank(message="Please enter firstname")
+    @NotEmpty(message="Please enter title")
     private String title;
 
     @Min(0)
@@ -90,7 +91,6 @@ public class Movie {
         this.duur = duur;
     }
 
-   // @Valid
     public Actor getHoofdrolSpeler() {
         return hoofdrolSpeler;
     }
@@ -99,7 +99,7 @@ public class Movie {
         this.hoofdrolSpeler = hoofdrolSpeler;
     }
 
-    @Override
+ /*   @Override
     public boolean equals(Object obj) {
         if (obj instanceof Movie) {
             Movie movie = (Movie) obj;
@@ -107,5 +107,43 @@ public class Movie {
         } else {
             return false;
         }
+    }*/
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + (this.title != null ? this.title.hashCode() : 0);
+        hash = 83 * hash + this.duur;
+        hash = 83 * hash + (this.hoofdrolSpeler != null ? this.hoofdrolSpeler.hashCode() : 0);
+        hash = 83 * hash + (this.genre != null ? this.genre.hashCode() : 0);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Movie other = (Movie) obj;
+        if (this.duur != other.duur) {
+            return false;
+        }
+        if ((this.title == null) ? (other.title != null) : !this.title.equals(other.title)) {
+            return false;
+        }
+        if (this.hoofdrolSpeler != other.hoofdrolSpeler && (this.hoofdrolSpeler == null || !this.hoofdrolSpeler.equals(other.hoofdrolSpeler))) {
+            return false;
+        }
+        if (this.genre != other.genre) {
+            return false;
+        }
+        return true;
+    }
+    
 }

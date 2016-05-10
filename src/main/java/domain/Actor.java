@@ -14,6 +14,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Created by cathlene on 8/02/2016.
@@ -21,16 +22,16 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 public class Actor {
 
-    @NotBlank(message="Please enter name")
+    @NotEmpty(message="Please enter name")
     private String naam;
     
-    @NotBlank(message="Please enter firstname")
+    @NotEmpty(message="Please enter firstname")
     private String voornaam;
     
-   @Min(0)
+   //@Min(0)
+    @Min(value = 0, message = "Age must be positive")
     private int leeftijd;
     
-   @Valid
    @NotNull
    @OneToMany(mappedBy = "hoofdrolSpeler")
     private List<Movie> movies;
