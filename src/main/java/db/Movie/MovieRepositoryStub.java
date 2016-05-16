@@ -18,9 +18,17 @@ public class MovieRepositoryStub implements MovieRepository {
     public MovieRepositoryStub() {
 
         movies = new TreeMap<Long, Movie>(); // films worden gesorteerd volgens titel bijgehouden
-
-        this.addMovie(new Movie("PublicEnemies", 118, new Actor("Johnny", "Depp", 55)));
-        this.addMovie(new Movie("Rango", 96, new Actor("Johnny", "Depp", 55)));
+        Actor actor= new Actor("Johnny", "Depp", 55);
+        Movie movie1=new Movie("PublicEnemies", 118,actor );
+        Movie movie2=new Movie("Rango", 96, actor);
+        this.addMovie(movie1);
+        this.addMovie(movie2);
+        actor.addMovie(movie1);
+        actor.addMovie(movie2);
+        for(Movie m:this.getAllMovies()){
+        m.setHoofdrolSpeler(actor);
+     }
+        
     }
 
     public static int getID() {

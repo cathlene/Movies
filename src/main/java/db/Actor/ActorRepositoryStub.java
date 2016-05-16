@@ -23,10 +23,11 @@ public class ActorRepositoryStub implements ActorRepository {
         actors= new HashMap<Long, Actor>();
         Actor actor= new Actor("Johnny", "Depp", 55);
         this.addActor(actor);
-         Movie movie=new Movie("PublicEnemies", 118, new Actor("Johnny", "Depp", 55));
+      /*   Movie movie=new Movie("PublicEnemies", 118, new Actor("Johnny", "Depp", 55));
        Movie movie2=(new Movie("Rango", 96, new Actor("Johnny", "Depp", 55)));
         actor.addMovie(movie);
        actor.addMovie(movie2);
+       this.updateActor(actor);*/
 
         
     }

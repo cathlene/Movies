@@ -41,8 +41,13 @@ public class MovieRepositorySql implements MovieRepository {
     }
 
     public boolean alreadyExists(Movie movie) {
-        return (this.getMovie(movie.getId()) != null);
 
+         for(Movie movie1: this.getAllMovies()){
+           if(movie1.equals(movie)) {
+               return true;
+           }
+       }
+       return false;
     }
 
     public void addMovie(Movie movie) {
@@ -61,7 +66,7 @@ public class MovieRepositorySql implements MovieRepository {
 
     public void removeMovie(Movie movie) {
         if (movie == null || !alreadyExists(movie)) {
-            throw new DbException("movie does not exixts");
+            throw new DbException("movie does not exists");
         }
         try {
 
@@ -76,8 +81,8 @@ public class MovieRepositorySql implements MovieRepository {
     }
 
     public void updateMovie(Movie movie) {
-        if (movie == null || !alreadyExists(movie)) {
-            throw new DbException("movie does not exixts");
+        if (movie == null ) {
+            throw new DbException("movie does not exists");
         }
         try {
             manager.getTransaction().begin();
@@ -92,7 +97,7 @@ public class MovieRepositorySql implements MovieRepository {
 
     public Movie getMovie(Movie movie) {
         if (movie == null || !alreadyExists(movie)) {
-            throw new DbException("movie does not exixts");
+            throw new DbException("movie does not exists");
         }
         try {
 

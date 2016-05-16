@@ -41,8 +41,12 @@ public class ActorRepositorySql implements ActorRepository {
 
     public boolean alreadyExists(Actor actor) {
 
-        return (this.getActor(actor.getId()) != null);
-
+       for(Actor actor1: this.getAllActors()){
+           if(actor1.equals(actor)) {
+               return true;
+           }
+       }
+       return false;
     }
 
     public void addActor(Actor actor) {
@@ -61,7 +65,7 @@ public class ActorRepositorySql implements ActorRepository {
 
     public void removeActor(Actor actor) {
         if (actor == null || !alreadyExists(actor)) {
-            throw new DbException("actor does not exixts");
+            throw new DbException("actor does not exists");
         }
         try {
             manager.getTransaction().begin();
@@ -75,8 +79,8 @@ public class ActorRepositorySql implements ActorRepository {
     }
 
     public void updateActor(Actor actor) {
-        if (actor == null || !alreadyExists(actor)) {
-            throw new DbException("actor does not exixts");
+        if (actor == null) {
+            throw new DbException("actor does not exists");
         }
         try {
 

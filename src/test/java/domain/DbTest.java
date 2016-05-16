@@ -176,8 +176,8 @@ public class DbTest {
     }
 
     @Test(expected = DbException.class)
-    public void testRemoveActor_geeft_DbExcecption_wanneer_de_acteur_met_id_niet_bestaat() {
-        facade.removeActor(new Actor("Johnny", "Depp", 55, 13));
+    public void testRemoveActor_geeft_DbExcecption_wanneer_de_acteur_met_naam_niet_bestaat() {
+        facade.removeActor(new Actor("Johnny", "Deppje", 55));
         assertEquals(1, facade.getAantalMovies());
 
     }
