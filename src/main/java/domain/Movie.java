@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import domain.Actor;
 import javax.persistence.CascadeType;
 import static javax.persistence.CascadeType.PERSIST;
@@ -23,6 +25,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Created by cathlene on 8/02/2016.
  */
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Movie {
 
     @NotEmpty(message="Please enter title")
