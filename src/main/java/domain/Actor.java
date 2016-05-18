@@ -83,6 +83,16 @@ public class Actor {
         movie.setHoofdrolSpeler(null);
     }
    
+    public void updateMovie(Movie movie) {
+        if (movie == null) {
+            throw new DomainException("geen geldige film");
+        }
+        for(int i=0 ;i<movies.size();i++){
+            if(movies.get(i).getId()==movie.getId()){
+                movies.set(i, movie);
+            }
+        }
+    }
     public String getNaam() {
         return naam;
     }

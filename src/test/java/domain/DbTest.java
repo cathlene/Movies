@@ -44,13 +44,13 @@ public class DbTest {
     }
 
     @Test
-    public void testGetActor_met_correcte_naam_voornaam() {
+    public void testGetActor_met_correcte_naam_voornaam_leeftijd() {
        assertEquals(actor2.getId(), facade.getActor(actor2.getNaam(), actor2.getVoornaam()).getId());
 
     }
 
     @Test
-    public void testRemoveActor_met_correcte_voornaam_naam_id_leeftijd_verwijdert_actor() {
+    public void testRemoveActor_met_correcte_voornaam_naam_leeftijd_verwijdert_actor() {
         assertEquals(2, facade.getAantalActors());
         facade.removeActor(actor);
         assertEquals(1, facade.getAantalActors());
@@ -58,7 +58,7 @@ public class DbTest {
     }
 
     @Test
-    public void testUpdateActor_met_correcte_voornaam_naam_id_leeftijd_update_actor_en_update_film_met_hoofdrolspeler() {
+    public void testUpdateActor_met_correcte_voornaam_naam_leeftijd_update_actor_en_update_bijhorende_film_met_hoofdrolspeler() {
         Movie movieNew= new Movie("Mobie",45,actor);
         facade.addMovie(movieNew);
         assertEquals(actor.getLeeftijd(), facade.getActor("Depp", "Johnny").getLeeftijd());
@@ -74,40 +74,26 @@ public class DbTest {
         
     }
     @Test
-    public void testUpdateEnDeleteMovie_delete_ook_movie_bij_actor() {
+    public void testUpdateEnDeleteMovie_delete__movie_met_correcte_title_duur_en_hoofdrolspeler_update_bijhorende_acteur_en_zijn_movielijst_met_film_minder() {
         Actor a = new Actor("a", "a", 4); 
-        facade.addActor(a); // add actor  aan facade
+        facade.addActor(a); 
         Movie movieNew= new Movie("hjk",78,a);
-        facade.addMovie(movieNew); // add movie aan facade
-        movieNew = facade.getMovie(movieNew.getId());
-      //  a.addMovie(movieNew); // voegt movie toe aan actor
-        
-
+        facade.addMovie(movieNew); 
+        movieNew = facade.getMovie(movieNew.getId());        
         movieNew.setTitle("rhe"); //update movie
-
         facade.updateMovie(movieNew); // update movie
         facade.updateActor(actor);
-        
-        List<Movie> movell= movieNew.getHoofdrolSpeler().getMovies(); 
-
         facade.removeMovie(movieNew);  
-       // movieNew.getHoofdrolSpeler().getMovies().remove(movieNew);   
         a = facade.getActor(a.getId());
         Movie movieNew2 = new Movie("hjk2",21,a);  
         facade.addMovie(movieNew2);   // add nieuwe movie
-      //  a.addMovie(movieNew2);         // add movie bij acteur
         a.setNaam("jo");
          facade.updateMovie(movieNew2); // update movie
         facade.updateActor(actor);
-        
-        List<Movie> movies = facade.getMovies();
-        
-
-        
     }
     
      @Test
-    public void testUpdateActor_wanneer_naam_wordt_geupdated_met_correcte_voornaam_naam_id_leeftijd_update_voornaam_van_actor_en_update_film_met_hoofdrolspeler() {
+    public void testUpdateActor_wanneer_naam_wordt_geupdated_met_correcte_voornaam_naam_leeftijd_update_voornaam_van_actor_en_update_film_met_hoofdrolspeler() {
         Movie movieNew= new Movie("Mobie",45,actor);
         facade.addMovie(movieNew);
         assertEquals(actor.getLeeftijd(), facade.getActor("Depp", "Johnny").getLeeftijd());
@@ -147,12 +133,8 @@ public class DbTest {
         assertEquals(110, facade.getMovie(movie2).getDuur());
          facade.getMoviesWithSpecificActor(actor2);
        assertEquals(110, facade.getMoviesWithSpecificActor(movie2.getHoofdrolSpeler()).get(0).getDuur());
-       //        assertEquals(110, facade.getMoviesWithSpecificActor(actor2).get(0).getDuur()); is niet geupdated
-
     }
   
-
-
     @Test
     public void testRemoveMovie_met_correcte_titel_duur_hoofdrolspeler_verwijdert_movie() {
         assertEquals(2, facade.getAantalMovies());
@@ -205,7 +187,6 @@ public class DbTest {
 
     @Test
     public void testAddActor_met_correcte_voornaam_naam_id_leeftijd_voegt_actor_toe() {
-
         ActorRepository actorRepository = new ActorRepositoryStub();
         actorRepository.addActor(actor);
         assertEquals(2, actorRepository.getAantalActors());
