@@ -21,24 +21,34 @@ public class ActorRepositorySql implements ActorRepository {
     public ActorRepositorySql(String name) {
         factory = Persistence.createEntityManagerFactory(name);
         manager = factory.createEntityManager();
-        /*Actor actor=new Actor("John", "De", 55);
-        Actor actor2=new Actor("Wil", "Be", 43);
-        this.addActor(actor);
-        this.addActor(actor2);
-       Movie movie = new Movie("Public", 118, actor);
-        Movie movie2 = new Movie("Into", 120, actor2); */
 
     }
 
     public void closeConnection() {
         try {
-            manager.close();
             factory.close();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
     }
 
+     public void closeManager(){
+       try{
+           manager.close();
+        }
+        catch(Exception e){
+            throw new DbException(e.getMessage(),e);
+        }
+    }
+     
+       public void openConnection(){
+        try {
+            manager = factory.createEntityManager();
+        } 
+        catch(Exception e){
+            throw new DbException(e.getMessage(),e);
+        }
+    }
     public boolean alreadyExists(Actor actor) {
 
        for(Actor actor1: this.getAllActors()){
@@ -54,12 +64,16 @@ public class ActorRepositorySql implements ActorRepository {
             throw new DbException("Actor already exists");
         }
         try {
+            this.openConnection();
             manager.getTransaction().begin();
             manager.persist(actor);
             manager.flush();
             manager.getTransaction().commit();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+        finally{
+            this.closeManager();
         }
     }
 
@@ -68,12 +82,19 @@ public class ActorRepositorySql implements ActorRepository {
             throw new DbException("actor does not exists");
         }
         try {
+            this.openConnection();
             manager.getTransaction().begin();
+            if (!manager.contains(actor)) {
+            actor = manager.merge(actor);
+                }
             manager.remove(actor);
             manager.flush();
             manager.getTransaction().commit();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+        finally{
+            this.closeManager();
         }
 
     }
@@ -83,7 +104,7 @@ public class ActorRepositorySql implements ActorRepository {
             throw new DbException("actor does not exists");
         }
         try {
-
+            this.openConnection();
             manager.getTransaction().begin();
             manager.merge(actor);
             manager.flush();
@@ -92,38 +113,54 @@ public class ActorRepositorySql implements ActorRepository {
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
+        finally{
+            this.closeManager();
+        }
     }
 
     public int getAantalActors() {
         try {
+            this.openConnection();
             Query query = manager.createQuery("select count(m) from Actor m");
             Long aantal = (Long) query.getSingleResult(); // Als je er direct Integer van probeert te maken geeft deze een error: cannot convert Long into Integer
             return aantal.intValue();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
+        finally{
+            this.closeManager();
+        }
     }
 
     public List<Actor> getAllActors() {
 
         try {
+            this.openConnection();
             Query query = manager.createQuery("select m from Actor m");
             return query.getResultList();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
+        finally{
+            this.closeManager();
+        }
     }
 
     public Actor getActor(long id) {
         try {
+            this.openConnection();
             return manager.find(Actor.class, id);
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+        finally{
+            this.closeManager();
         }
     }
 
     public Actor getActor(String naam, String voornaam) {
         try {
+            this.openConnection();
             TypedQuery<Actor> query = manager.createQuery("select m from Actor m where m.naam= :naam AND m.voornaam = :voornaam", Actor.class);
             query.setParameter("voornaam", voornaam);
             query.setParameter("naam", naam);
@@ -131,6 +168,9 @@ public class ActorRepositorySql implements ActorRepository {
 
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+        finally{
+            this.closeManager();
         }
     }
 

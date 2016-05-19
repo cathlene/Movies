@@ -25,18 +25,30 @@ public class MovieRepositorySql implements MovieRepository {
 
         factory = Persistence.createEntityManagerFactory(name);
         manager = factory.createEntityManager();
-        /*     Actor actor=new Actor("John", "Dep", 55);
-        Actor actor2=new Actor("Wil", "Be", 43); 
-        this.addMovie(new Movie("Public", 118, actor));
-        this.addMovie(new Movie("Into", 120, actor2));*/
     }
 
-    public void closeConnection() {
+   public void closeConnection() {
         try {
-            manager.close();
             factory.close();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+    }
+   public void closeManager(){
+       try{
+           manager.close();
+        }
+        catch(Exception e){
+            throw new DbException(e.getMessage(),e);
+        }
+    }
+     
+       public void openConnection(){
+        try {
+            manager = factory.createEntityManager();
+        } 
+        catch(Exception e){
+            throw new DbException(e.getMessage(),e);
         }
     }
 
@@ -55,12 +67,16 @@ public class MovieRepositorySql implements MovieRepository {
             throw new DbException("movie already exitsts");
         }
         try {
+            this.openConnection();
             manager.getTransaction().begin();
             manager.persist(movie);
             manager.flush();
             manager.getTransaction().commit();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+         finally{
+            this.closeManager();
         }
     }
 
@@ -69,14 +85,20 @@ public class MovieRepositorySql implements MovieRepository {
             throw new DbException("movie does not exists");
         }
         try {
-
+            this.openConnection();
             manager.getTransaction().begin();
+            if (!manager.contains(movie)) {
+            movie = manager.merge(movie);
+                }
             manager.remove(movie);
             manager.flush(); // wordt onmiddelijk op db gezet en niet enkel in geheugen
             manager.getTransaction().commit();
 
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+         finally{
+            this.closeManager();
         }
     }
 
@@ -85,6 +107,7 @@ public class MovieRepositorySql implements MovieRepository {
             throw new DbException("movie does not exists");
         }
         try {
+            this.openConnection();
             manager.getTransaction().begin();
             manager.merge(movie);
             manager.flush();
@@ -93,6 +116,9 @@ public class MovieRepositorySql implements MovieRepository {
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
+         finally{
+            this.closeManager();
+        }
     }
 
     public Movie getMovie(Movie movie) {
@@ -100,57 +126,72 @@ public class MovieRepositorySql implements MovieRepository {
             throw new DbException("movie does not exists");
         }
         try {
-
             return this.getMovie(movie.getId());
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
-
+        
     }
 
     public Movie getMovie(long id) {
 
         try {
+            this.openConnection();
             return manager.find(Movie.class, id);
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+         finally{
+            this.closeManager();
         }
     }
 
     public List<Movie> getAllMovies() {
 
         try {
+            this.openConnection();
             Query query = manager.createQuery("select m from Movie m");
             return query.getResultList();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+         finally{
+            this.closeManager();
         }
     }
 
     public int getAantalMovies() {
 
         try {
+            this.openConnection();
             Query query = manager.createQuery("select count(m) from Movie m");
             Long aantal = (Long) query.getSingleResult(); // Als je er direct Integer van probeert te maken geeft deze een error: cannot convert Long into Integer
             return aantal.intValue();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
+         finally{
+            this.closeManager();
+        }
     }
 
     public List<Movie> getMoviesWithSpecificDuration(int duur) {
         try {
+            this.openConnection();
             Query query = manager.createQuery("select m from Movie m where m.duur <= :duration").setParameter("duration", duur);
             return query.getResultList();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+         finally{
+            this.closeManager();
         }
     }
 
     public List<Movie> getMoviesWithSpecificActor(Actor actor) {
 
         try {
-
+            this.openConnection();
             String fullNaam = actor.getFullName();
             int leeftijd = actor.getLeeftijd();
             TypedQuery<Actor> query = manager.createQuery("select m from Actor m where m.fullName = :fullName AND m.leeftijd = :leeftijd", Actor.class);
@@ -161,6 +202,9 @@ public class MovieRepositorySql implements MovieRepository {
             return actor.getMovies();
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
+        }
+         finally{
+            this.closeManager();
         }
     }
 
@@ -182,6 +226,7 @@ public class MovieRepositorySql implements MovieRepository {
 
     public void deleteMoviesWithSpecificActor(Actor actor) {
         try {
+          //  this.openConnection();
             ListIterator<Movie> itr = this.getAllMovies().listIterator();
             while (itr.hasNext()) {
                 Movie movie = itr.next();
@@ -194,6 +239,9 @@ public class MovieRepositorySql implements MovieRepository {
         } catch (Exception e) {
             throw new DbException(e.getMessage(), e);
         }
+     /*    finally{
+            this.closeManager();
+        }*/
     }
 
 }
