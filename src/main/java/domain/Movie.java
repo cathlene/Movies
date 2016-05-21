@@ -26,7 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Created by cathlene on 8/02/2016.
  */
 @Entity
-//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Movie {
 
     @NotEmpty(message="Please enter title")
@@ -38,7 +38,7 @@ public class Movie {
     @NotNull(message = "invalid actor")
     @Valid
   //  @ManyToOne(cascade = CascadeType.MERGE)
-    @JsonBackReference
+ //   @JsonBackReference
     private Actor hoofdrolSpeler;
 
     @Enumerated(EnumType.STRING)
