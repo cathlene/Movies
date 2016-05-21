@@ -36,7 +36,7 @@ public class Actor {
     private int leeftijd;
     
    @NotNull
-   @OneToMany(mappedBy = "hoofdrolSpeler")
+   @OneToMany(cascade = CascadeType.ALL,mappedBy = "hoofdrolSpeler")
     private List<Movie> movies;
 
     @Id

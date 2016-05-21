@@ -56,8 +56,8 @@ public class Facade {
 
     public void updateMovie(Movie movie) {
         movieService.updateMovie(movie);
-          Actor actor = movie.getHoofdrolSpeler();
-        actor.updateMovie(movie);
+       //   Actor actor = movie.getHoofdrolSpeler();
+       // actor.updateMovie(movie);
        // actorService.updateActor(actor);
         
     }
