@@ -80,6 +80,11 @@ public class MovieRepositorySql implements MovieRepository {
         }
     }
 
+    public void removeMovie(long id){
+    Movie movie=this.getMovie(id);
+    this.removeMovie(movie);
+    }
+   
     public void removeMovie(Movie movie) {
         if (movie == null || !alreadyExists(movie)) {
             throw new DbException("movie does not exists");

@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Created by cathlene on 8/02/2016.
  */
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Actor {
 
     @NotEmpty(message="Please enter name")
@@ -37,6 +38,7 @@ public class Actor {
     
    @NotNull
    @OneToMany(cascade = CascadeType.ALL,mappedBy = "hoofdrolSpeler")
+   @JsonManagedReference
     private List<Movie> movies;
 
     @Id

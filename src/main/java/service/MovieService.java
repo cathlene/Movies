@@ -16,56 +16,69 @@ import java.util.List;
  * @author cathlene
  */
 public class MovieService {
-     private MovieRepository movieRepository;
 
-    public MovieService(String repository){
-             movieRepository= new MovieFactory().createRepository(repository);
+    private MovieRepository movieRepository;
+
+    public MovieService(String repository) {
+        movieRepository = new MovieFactory().createRepository(repository);
 
     }
-     public List<Movie> getMoviesWithSpecificDuration(int duur){
+
+    public List<Movie> getMoviesWithSpecificDuration(int duur) {
         return movieRepository.getMoviesWithSpecificDuration(duur);
     }
 
-    public List<Movie>getMovies(){
-    return movieRepository.getAllMovies();
+    public List<Movie> getMovies() {
+        return movieRepository.getAllMovies();
     }
-    
-     public List<Movie> getMoviesWithSpecificActor(Actor actor){
+
+    public List<Movie> getMoviesWithSpecificActor(Actor actor) {
         return movieRepository.getMoviesWithSpecificActor(actor);
     }
-      public Movie getMovie(Movie movie){
+
+    public Movie getMovie(Movie movie) {
         return movieRepository.getMovie(movie);
     }
-       public Movie getMovie(long id){
+
+    public Movie getMovie(long id) {
         return movieRepository.getMovie(id);
     }
-       public void removeMovie(Movie movie){
-          
+
+    public void removeMovie(Movie movie) {
+
         movieRepository.removeMovie(movie);
     }
-    public MovieRepository getMovieRepository(){
+    
+      public void removeMovie(long id) {
+
+        movieRepository.removeMovie(id);
+    }
+
+    public MovieRepository getMovieRepository() {
         return this.movieRepository;
     }
-     public void updateMovie(Movie movie){
+
+    public void updateMovie(Movie movie) {
         movieRepository.updateMovie(movie);
     }
-      public void addMovie(Movie movie){
+
+    public void addMovie(Movie movie) {
         movieRepository.addMovie(movie);
     }
-       public int getAantalMovies(){
-    return movieRepository.getAantalMovies();
+
+    public int getAantalMovies() {
+        return movieRepository.getAantalMovies();
     }
-       public void clearData(){
-       movieRepository.clearData();
-       }
+
+    public void clearData() {
+        movieRepository.clearData();
+    }
 
     public void deleteMoviesWithSpecificActor(Actor actor) {
         movieRepository.deleteMoviesWithSpecificActor(actor);
-    
-    
+
     }
 
-   
     public void closeConnection() {
         movieRepository.closeConnection();
     }

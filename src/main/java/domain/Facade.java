@@ -55,11 +55,19 @@ public class Facade {
     }
 
     public void updateMovie(Movie movie) {
+        Movie movieOrgineel= this.getMovie(movie.getId());
+        if(!movie.getHoofdrolSpeler().equals(movieOrgineel.getHoofdrolSpeler())){
+            // indien de hoofrolspeler van de movie is aangepast moeten we eerst de movie verwijderen uit de lijst van movies vd acteur
+           Actor actorOrgineel = movieOrgineel.getHoofdrolSpeler();
+           actorOrgineel.deleteMovie(movieOrgineel);
+           actorService.updateActor(actorOrgineel);
+        // daarna moeten we de film bij de nieuwe acteur toevoegen
+           Actor actor = movie.getHoofdrolSpeler();
+           actor.addMovie(movie);
+           actorService.updateActor(actor);
+        }
         movieService.updateMovie(movie);
-       //   Actor actor = movie.getHoofdrolSpeler();
-       // actor.updateMovie(movie);
-       // actorService.updateActor(actor);
-        
+
     }
 
     public void updateActor(Actor actor) {
@@ -74,6 +82,15 @@ public class Facade {
         Actor actor = movie.getHoofdrolSpeler();
         actor.deleteMovie(movie);
         actorService.updateActor(actor);
+    }
+    
+    public void removeMovie(long id){
+        movieService.removeMovie(id);
+        Movie movie= movieService.getMovie(id);
+        Actor actor = movie.getHoofdrolSpeler();
+        actor.deleteMovie(movie);
+        actorService.updateActor(actor);
+        
     }
 
     public void clearMovieData() {
@@ -145,8 +162,10 @@ public class Facade {
         Map<String, String> parameters = new HashMap<String, String>();
         parameters.put("t", title);
         RestTemplate restTemplate = new RestTemplate();
-
         Result response = restTemplate.getForObject("http://www.omdbapi.com/?t={t}&y=&plot=short&r=json", Result.class, parameters);
+       /* if(response == null){
+            throw new DomainException();
+        }*/
         return response;
     }
 

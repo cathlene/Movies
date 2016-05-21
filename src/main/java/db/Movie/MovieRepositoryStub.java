@@ -51,6 +51,10 @@ public class MovieRepositoryStub implements MovieRepository {
         }
         movies.remove(movie.getId());
     }
+    public void removeMovie(long id){
+    Movie movie= this.getMovie(id);
+    this.removeMovie(movie);
+    }
 
     public void updateMovie(Movie movie) {
         if (movie == null || !movies.containsKey(movie.getId())) {
