@@ -32,12 +32,12 @@ public class Movie {
     @NotEmpty(message="Please enter title")
     private String title;
 
-    @Min(0)
+   @Min(value = 0, message = "Duration must be positive")
     private int duur;
 
     @NotNull(message = "invalid actor")
     @Valid
-    @ManyToOne(cascade = CascadeType.MERGE)
+  //  @ManyToOne(cascade = CascadeType.MERGE)
     @JsonBackReference
     private Actor hoofdrolSpeler;
 
